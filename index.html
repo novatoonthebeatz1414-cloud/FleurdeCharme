@@ -1278,28 +1278,27 @@ let t=0;
 
 /* ─── Catalog Data ─── */
 const catalogItems = [
-  { id:1,  img:'imagenes/foto1.jpg',  title:'Arreglo Classic',        desc:'Rosa preservada en tonos rosé. Belleza que perdura sin mantenimiento.',                    tags:['flores','ramos'],    pills:['Preservada','Rosa','Romántica'] },
-  { id:2,  img:'imagenes/foto2.jpg',  title:'Boutonnière Elegance',   desc:'Pequeño ramo para ocasiones formales y eventos especiales.',                               tags:['ramos','flores'],    pills:['Formal','Evento','Boutonnière'] },
-  { id:3,  img:'imagenes/foto3.jpg',  title:'Corona Romántica',       desc:'Corona artesanal de flores preservadas. Ideal para momentos únicos.',                     tags:['flores'],            pills:['Corona','Artesanal','Especial'] },
-  { id:4,  img:'imagenes/foto4.jpg',  title:'Caja Vintage',           desc:'Caja decorativa con rosas blancas preservadas. Elegancia atemporal.',                     tags:['cajas'],             pills:['Caja','Blanco','Vintage'] },
-  { id:5,  img:'imagenes/foto5.jpg',  title:'Ramo Infinity',          desc:'Mezcla premium de flores preservadas con colores contrastantes.',                         tags:['ramos','flores'],    pills:['Ramo','Premium','Colorido'] },
-  { id:6,  img:'imagenes/foto6.jpg',  title:'Bandeja Dream',          desc:'Bandeja decorativa exclusiva, perfecta como regalo de lujo.',                             tags:['bandejas'],          pills:['Bandeja','Lujo','Regalo'] },
-  { id:7,  img:'imagenes/foto7.jpg',  title:'Centro de Mesa',         desc:'Arreglo central para mesas de eventos y decoraciones especiales.',                        tags:['flores','bandejas'], pills:['Centro','Evento','Decoración'] },
-  { id:8,  img:'imagenes/foto8.jpg',  title:'Caja Hearts',            desc:'Caja en forma de corazón con flores preservadas. El regalo perfecto.',                   tags:['cajas'],             pills:['Corazón','Regalo','Amor'] },
-  { id:9,  img:'imagenes/foto9.jpg',  title:'Arreglo Premium',        desc:'Selección especial de rosas preservadas de la más alta calidad.',                        tags:['flores','ramos'],    pills:['Premium','Rosa','Exclusivo'] },
-  { id:10, img:'imagenes/foto10.jpg', title:'Bandeja Gold',           desc:'Bandeja decorativa con acentos dorados. Sofisticación pura.',                             tags:['bandejas'],          pills:['Dorado','Lujosa','Bandeja'] },
-  { id:11, img:'imagenes/foto11.jpg', title:'Ramo Bride',             desc:'Ramo de novia completamente personalizado. Tu día perfecto merece esto.',                tags:['ramos','flores'],    pills:['Novia','Boda','Personalizado'] },
-  { id:12, img:'imagenes/foto12.jpg', title:'Caja Infinity',          desc:'Caja grande con gran variedad de flores eternas. Para decir mucho.',                     tags:['cajas'],             pills:['Grande','Variedad','Caja'] },
-  { id:13, img:'imagenes/foto13.jpg', title:'Arreglo Romance',        desc:'Rosa roja preservada, símbolo eterno del amor verdadero.',                               tags:['flores','ramos'],    pills:['Rosa Roja','Romance','Eterno'] },
-  { id:14, img:'imagenes/foto14.jpg', title:'Bandeja Celebration',    desc:'Perfecta para aniversarios y celebraciones que merecen ser recordadas.',                 tags:['bandejas'],          pills:['Aniversario','Celebración','Especial'] },
-  { id:15, img:'imagenes/foto15.jpg', title:'Frame Memory',           desc:'Marco decorativo con flores eternas. Convierte un recuerdo en arte.',                    tags:['flores'],            pills:['Marco','Decoración','Recuerdo'] },
-  { id:16, img:'imagenes/foto16.jpg', title:'Caja Love',              desc:'Caja especial diseñada para regalos de amor en todas sus formas.',                       tags:['cajas'],             pills:['Amor','Regalo','Especial'] },
-  { id:17, img:'imagenes/foto17.jpg', title:'Arreglo Petit',          desc:'Pequeño, encantador y con mucho carácter. El regalo que sorprende.',                     tags:['flores','ramos'],    pills:['Pequeño','Encantador','Detalle'] },
-  { id:18, img:'imagenes/foto18.jpg', title:'Bandeja Surprise',       desc:'La sorpresa perfecta para alguien que lo merece todo.',                                   tags:['bandejas'],          pills:['Sorpresa','Especial','Bandeja'] },
-  { id:19, img:'imagenes/foto19.jpg', title:'Ramo Eternity',          desc:'Flores que duran para siempre, como los mejores recuerdos.',                             tags:['ramos','flores'],    pills:['Eterno','Ramo','Preservado'] },
-  { id:20, img:'imagenes/foto20.jpg', title:'Caja Royal',             desc:'Edición especial limitada. Lo más exclusivo de nuestra colección.',                      tags:['cajas'],             pills:['Limitada','Royal','Exclusivo'] },
+  { id:1,  img:'foto1.jpg',  title:'Arreglo Classic',        desc:'Rosa preservada en tonos rosé. Belleza que perdura sin mantenimiento.',                    tags:['flores','ramos'],    pills:['Preservada','Rosa','Romántica'] },
+  { id:2,  img:'foto2.jpg',  title:'Boutonnière Elegance',   desc:'Pequeño ramo para ocasiones formales y eventos especiales.',                               tags:['ramos','flores'],    pills:['Formal','Evento','Boutonnière'] },
+  { id:3,  img:'foto3.jpg',  title:'Corona Romántica',       desc:'Corona artesanal de flores preservadas. Ideal para momentos únicos.',                     tags:['flores'],            pills:['Corona','Artesanal','Especial'] },
+  { id:4,  img:'foto4.jpg',  title:'Caja Vintage',           desc:'Caja decorativa con rosas blancas preservadas. Elegancia atemporal.',                     tags:['cajas'],             pills:['Caja','Blanco','Vintage'] },
+  { id:5,  img:'foto5.jpg',  title:'Ramo Infinity',          desc:'Mezcla premium de flores preservadas con colores contrastantes.',                         tags:['ramos','flores'],    pills:['Ramo','Premium','Colorido'] },
+  { id:6,  img:'foto6.jpg',  title:'Bandeja Dream',          desc:'Bandeja decorativa exclusiva, perfecta como regalo de lujo.',                             tags:['bandejas'],          pills:['Bandeja','Lujo','Regalo'] },
+  { id:7,  img:'foto7.jpg',  title:'Centro de Mesa',         desc:'Arreglo central para mesas de eventos y decoraciones especiales.',                        tags:['flores','bandejas'], pills:['Centro','Evento','Decoración'] },
+  { id:8,  img:'foto8.jpg',  title:'Caja Hearts',            desc:'Caja en forma de corazón con flores preservadas. El regalo perfecto.',                   tags:['cajas'],             pills:['Corazón','Regalo','Amor'] },
+  { id:9,  img:'foto9.jpg',  title:'Arreglo Premium',        desc:'Selección especial de rosas preservadas de la más alta calidad.',                        tags:['flores','ramos'],    pills:['Premium','Rosa','Exclusivo'] },
+  { id:10, img:'foto10.jpg', title:'Bandeja Gold',           desc:'Bandeja decorativa con acentos dorados. Sofisticación pura.',                             tags:['bandejas'],          pills:['Dorado','Lujosa','Bandeja'] },
+  { id:11, img:'foto11.jpg', title:'Ramo Bride',             desc:'Ramo de novia completamente personalizado. Tu día perfecto merece esto.',                tags:['ramos','flores'],    pills:['Novia','Boda','Personalizado'] },
+  { id:12, img:'foto12.jpg', title:'Caja Infinity',          desc:'Caja grande con gran variedad de flores eternas. Para decir mucho.',                     tags:['cajas'],             pills:['Grande','Variedad','Caja'] },
+  { id:13, img:'foto13.jpg', title:'Arreglo Romance',        desc:'Rosa roja preservada, símbolo eterno del amor verdadero.',                               tags:['flores','ramos'],    pills:['Rosa Roja','Romance','Eterno'] },
+  { id:14, img:'foto14.jpg', title:'Bandeja Celebration',    desc:'Perfecta para aniversarios y celebraciones que merecen ser recordadas.',                 tags:['bandejas'],          pills:['Aniversario','Celebración','Especial'] },
+  { id:15, img:'foto15.jpg', title:'Frame Memory',           desc:'Marco decorativo con flores eternas. Convierte un recuerdo en arte.',                    tags:['flores'],            pills:['Marco','Decoración','Recuerdo'] },
+  { id:16, img:'foto16.jpg', title:'Caja Love',              desc:'Caja especial diseñada para regalos de amor en todas sus formas.',                       tags:['cajas'],             pills:['Amor','Regalo','Especial'] },
+  { id:17, img:'foto17.jpg', title:'Arreglo Petit',          desc:'Pequeño, encantador y con mucho carácter. El regalo que sorprende.',                     tags:['flores','ramos'],    pills:['Pequeño','Encantador','Detalle'] },
+  { id:18, img:'foto18.jpg', title:'Bandeja Surprise',       desc:'La sorpresa perfecta para alguien que lo merece todo.',                                   tags:['bandejas'],          pills:['Sorpresa','Especial','Bandeja'] },
+  { id:19, img:'foto19.jpg', title:'Ramo Eternity',          desc:'Flores que duran para siempre, como los mejores recuerdos.',                             tags:['ramos','flores'],    pills:['Eterno','Ramo','Preservado'] },
+  { id:20, img:'foto20.jpg', title:'Caja Royal',             desc:'Edición especial limitada. Lo más exclusivo de nuestra colección.',                      tags:['cajas'],             pills:['Limitada','Royal','Exclusivo'] },
 ];
-
 const WA_BASE = 'https://wa.me/18099999999?text=';
 
 function waLink(title){
