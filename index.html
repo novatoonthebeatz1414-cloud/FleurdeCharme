@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fleur de Charme. Página Bio Link</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Upright:wght@300;400;600;700&family=Cinzel:wght@400;600;900&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --ink:#060308;
+  --parchment:#fef5f9;
+  --rose-deep:#c2185b;
+  --rose-mid:#e91e8c;
+  --rose-soft:#f48fb1;
+  --rose-pale:#fce4ec;
+  --gold:#d4a843;
+  --gold2:#c8973a;
+  --gold3:#f0c96e;
+  --cream:#fff5f9;
+  --dark1:#120410;
+  --dark2:#1a0518;
+  --dark3:#220820;
+  --foil:linear-gradient(110deg,#f48fb1 0%,#f0c96e 25%,#f48fb1 50%,#f0c96e 75%,#e91e8c 100%);
+  --foil-rose:linear-gradient(110deg,#e91e8c 0%,#f48fb1 35%,#ff80ab 55%,#f48fb1 75%,#c2185b 100%);
+  --brd:rgba(193,24,91,0.30);
+  --brd2:rgba(193,24,91,0.15);
+  --brd-gold:rgba(212,168,67,0.35);
+  --dim:rgba(255,245,249,0.60);
+  --dimmer:rgba(255,245,249,0.30);
+  --glass:rgba(18,4,16,0.65);
+  --glass-light:rgba(255,255,255,0.07);
+  --shadow-rose:rgba(193,24,91,0.25);
+  --shadow-deep:rgba(0,0,0,0.55);
+}
+
+html{scroll-behavior:smooth;height:100%}
+body{
+  background:
+    radial-gradient(ellipse 90% 60% at 15% 10%, rgba(180,20,80,0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 85% 80%, rgba(140,10,60,0.3) 0%, transparent 50%),
+    linear-gradient(155deg,#1a0518 0%,#2a0a22 40%,#1e0820 70%,#120410 100%);
+  font-family:'Raleway',sans-serif;
+  color:var(--parchment);
+  min-height:100vh;
+  overflow-x:hidden;
+  cursor:default;
+}
+
+/* ═══════════════════════════════════
+   BACKGROUND: Pink bokeh / petal blur
+═══════════════════════════════════ */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* Leaf-petal shapes floating in BG */
+#petal-layer{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-petal{
+  position:absolute;
+  border-radius:50% 0 50% 0;
+  opacity:0;
+  animation:petalFloat linear infinite;
+  filter:blur(1px);
+}
+@keyframes petalFloat{
+  0%{opacity:0;transform:translateY(110vh) rotate(0deg) scale(0.6)}
+  10%{opacity:0.7}
+  85%{opacity:0.5}
+  100%{opacity:0;transform:translateY(-20vh) rotate(720deg) scale(1.1)}
+}
+
+/* Large blurred bokeh blobs */
+.bokeh-wrap{position:fixed;inset:0;z-index:0;pointer-events:none}
+.bok{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(60px);
+  animation:bokehDrift ease-in-out infinite alternate;
+}
+@keyframes bokehDrift{
+  from{transform:translate(0,0) scale(1)}
+  to{transform:translate(var(--dx),var(--dy)) scale(var(--ds))}
+}
+
+.noise{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.028;mix-blend-mode:overlay;
+}
+
+/* ═══════════════════════════════════
+   PAGE SHELL
+═══════════════════════════════════ */
+.page{
+  position:relative;z-index:2;
+  max-width:440px;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;
+  padding-bottom:80px;
+}
+
+/* ═══════════════════════════════════
+   MASTHEAD — glass card style
+═══════════════════════════════════ */
+.masthead{
+  width:100%;
+  background:linear-gradient(175deg,
+    rgba(12,2,10,0.97) 0%,
+    rgba(20,4,16,0.98) 50%,
+    rgba(14,3,12,0.97) 100%);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  padding:56px 30px 48px;
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--brd-gold);
+}
+
+/* Glowing inner border */
+.masthead::before{
+  content:'';position:absolute;
+  inset:14px;
+  border:1px solid rgba(212,168,67,0.15);
+  border-radius:4px;pointer-events:none;
+}
+.masthead::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 0%,var(--gold2) 25%,var(--gold3) 50%,var(--gold2) 75%,transparent 100%);
+}
+
+/* Corner ornaments */
+.corner{position:absolute;width:28px;height:28px}
+.corner svg{width:100%;height:100%}
+.c-tl{top:8px;left:8px}
+.c-tr{top:8px;right:8px;transform:scaleX(-1)}
+.c-bl{bottom:8px;left:8px;transform:scaleY(-1)}
+.c-br{bottom:8px;right:8px;transform:scale(-1,-1)}
+
+/* Logo */
+.logo-wrap{
+  position:relative;margin-bottom:24px;
+  animation:curtainUp 1.2s cubic-bezier(.16,1,.3,1) both;
+  display:flex;flex-direction:column;align-items:center;gap:0;
+}
+.logo-halo{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(224,53,122,.22) 0%,rgba(255,130,180,.08) 50%,transparent 70%);
+  animation:breathe 4s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes breathe{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(.97)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
+
+.logo-frame{
+  position:relative;
+  width:150px;height:150px;
+  border-radius:50%;
+  padding:3px;
+  background:conic-gradient(
+    #c2185b 0deg,#d4a843 40deg,#c2185b 80deg,
+    #ad1457 120deg,#f48fb1 160deg,#ad1457 200deg,
+    #c2185b 240deg,#d4a843 280deg,#c2185b 320deg,
+    #e91e8c 360deg
+  );
+  animation:foilspin 14s linear infinite;
+  box-shadow:
+    0 0 40px rgba(193,24,91,.45),
+    0 0 80px rgba(193,24,91,.18),
+    0 0 120px rgba(212,168,67,.12);
+}
+@keyframes foilspin{to{transform:rotate(360deg)}}
+.logo-img{
+  width:100%;height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:center;
+  border:3px solid #0a0508;
+  display:block;
+}
+.logo-frame::after{
+  content:'';position:absolute;inset:3px;border-radius:50%;
+  background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.12),transparent 55%);
+  pointer-events:none;z-index:2;
+}
+/* Live dot */
+.logo-live{
+  position:absolute;bottom:8px;right:8px;
+  width:20px;height:20px;border-radius:50%;
+  background:radial-gradient(circle,#4ade80,#16a34a);
+  border:3px solid #0a0508;
+  box-shadow:0 0 16px rgba(74,222,128,.6);
+  animation:livepulse 2s ease-in-out infinite;
+  z-index:4;
+}
+@keyframes livepulse{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.7)}50%{box-shadow:0 0 0 10px rgba(74,222,128,0)}}
+
+/* Brand typography */
+.brand-block{
+  text-align:center;
+  animation:curtainUp 1.2s .07s cubic-bezier(.16,1,.3,1) both;
+}
+.brand-overline{
+  font-family:'Cinzel',serif;
+  font-size:.52rem;letter-spacing:.55em;text-transform:uppercase;
+  color:var(--gold3);font-weight:400;
+  margin-bottom:14px;display:block;opacity:.9;
+}
+.brand-title{
+  font-family:'Great Vibes',cursive;
+  font-size:3.6rem;font-weight:400;line-height:1.05;
+  letter-spacing:.01em;
+  overflow:visible;
+}
+.brand-title .word1{
+  display:block;font-style:normal;
+  background:var(--foil);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200% 100%;
+  animation:foilshift 4s ease-in-out infinite;
+  padding:0 4px;
+}
+@keyframes foilshift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.brand-title .word2{
+  display:block;
+  font-family:'Cinzel',serif;
+  font-size:.95rem;font-weight:400;
+  color:var(--gold3);letter-spacing:.5em;
+  font-style:normal;
+  margin:6px 0 4px;
+  opacity:.85;
+}
+.brand-title .word3{
+  display:block;font-style:normal;
+  background:var(--foil);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200% 100%;
+  animation:foilshift 4s .5s ease-in-out infinite;
+  font-size:3.4rem;
+  padding:0 4px;
+  overflow:visible;
+}
+.brand-sub{
+  font-family:'Cinzel',serif;
+  font-size:.54rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--dim);font-weight:400;margin-top:14px;display:block;
+}
+
+/* Divider ornament */
+.orn-div{
+  display:flex;align-items:center;gap:10px;
+  margin:20px auto 0;width:180px;
+  animation:curtainUp 1.2s .14s cubic-bezier(.16,1,.3,1) both;
+}
+.orn-div-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(224,53,122,.5))}
+.orn-div-line.r{background:linear-gradient(270deg,transparent,rgba(224,53,122,.5))}
+.orn-div svg{width:14px;height:14px;color:var(--gold);flex-shrink:0}
+
+/* Bio */
+.bio-text{
+  font-size:.82rem;font-weight:300;color:rgba(255,245,249,0.72);
+  text-align:center;line-height:2;margin-top:20px;
+  letter-spacing:.04em;
+  animation:curtainUp 1.2s .18s cubic-bezier(.16,1,.3,1) both;
+}
+.bio-text em{color:var(--gold3);font-style:normal;font-weight:400}
+
+/* Status */
+.status-row{
+  display:flex;align-items:center;gap:8px;margin-top:16px;
+  background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.22);
+  border-radius:100px;padding:6px 16px;
+  animation:curtainUp 1.2s .22s cubic-bezier(.16,1,.3,1) both;
+}
+.s-dot{width:7px;height:7px;background:#4ade80;border-radius:50%;box-shadow:0 0 8px rgba(74,222,128,.8);animation:livepulse 2s ease-in-out infinite}
+.s-txt{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#4ade80;font-weight:300}
+
+/* ═══════════════════════════════════
+   TRIPTYCH STATS
+═══════════════════════════════════ */
+.triptych{
+  display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;
+  width:calc(100% - 40px);
+  margin:0 auto;
+  background:rgba(10,2,8,0.90);
+  backdrop-filter:blur(16px);
+  border:1px solid var(--brd-gold);border-top:none;
+  animation:curtainUp 1.2s .28s cubic-bezier(.16,1,.3,1) both;
+  border-radius:0 0 16px 16px;
+  box-shadow:0 8px 40px rgba(0,0,0,.4),0 0 0 1px rgba(212,168,67,0.08) inset;
+}
+.tri-sep{background:var(--brd-gold)}
+.tri-cell{padding:22px 8px;text-align:center}
+.tri-icon{display:flex;justify-content:center;margin-bottom:8px}
+.tri-icon svg{width:18px;height:18px;color:var(--gold3)}
+.tri-val{
+  font-family:'Cormorant Upright',serif;font-size:1.5rem;
+  background:var(--foil);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200%;animation:foilshift 5s ease-in-out infinite;display:block;line-height:1;
+}
+.tri-lbl{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,245,249,0.45);display:block;margin-top:5px;font-weight:300}
+
+/* ═══════════════════════════════════
+   SECTION HEADERS
+═══════════════════════════════════ */
+.sec-head{
+  display:flex;align-items:center;gap:0;
+  width:100%;margin:40px 0 18px;padding:0 20px;
+}
+.sh-rule{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--brd-gold))}
+.sh-rule.r{background:linear-gradient(270deg,transparent,var(--brd-gold))}
+.sh-inner{
+  padding:0 18px;display:flex;align-items:center;gap:8px;
+}
+.sh-roman{
+  font-family:'Cinzel',serif;font-size:.5rem;
+  letter-spacing:.4em;text-transform:uppercase;
+  color:var(--gold3);font-weight:600;white-space:nowrap;
+}
+.sh-deco{width:5px;height:5px;background:var(--gold3);transform:rotate(45deg);opacity:.7}
+
+/* ═══════════════════════════════════
+   WA GRAND BUTTON — CAPSULE STYLE
+═══════════════════════════════════ */
+.wa-grand{
+  margin:0 20px;width:calc(100% - 40px);
+  display:flex;align-items:stretch;
+  background:linear-gradient(125deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,.08) 100%);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(74,222,128,.45);
+  border-radius:100px;
+  text-decoration:none;color:inherit;
+  position:relative;overflow:hidden;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease,background .3s ease;
+  cursor:pointer;
+}
+.wa-grand::before{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(135deg,rgba(74,222,128,.08) 0%,transparent 40%),
+    radial-gradient(ellipse 80% 60% at 90% 50%,rgba(74,222,128,.06),transparent);
+  border-radius:100px;
+}
+.wa-grand:hover{
+  transform:translateY(-5px) scale(1.01);
+  background:linear-gradient(125deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.1) 100%);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.6),
+    0 0 0 1px rgba(74,222,128,.6),
+    0 0 60px rgba(74,222,128,.12);
+}
+.wa-grand:active{transform:translateY(-2px) scale(1)}
+
+/* Foil edge — hidden in capsule, use left circle instead */
+.wa-foil{display:none}
+
+.wa-content{padding:20px 22px 20px 24px;flex:1}
+.wa-eyebrow{
+  font-family:'Cinzel',serif;font-size:.5rem;
+  letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(74,222,128,.8);display:block;margin-bottom:8px;
+}
+.wa-headline{
+  font-family:'Cormorant Upright',serif;font-size:1.35rem;
+  color:var(--cream);display:block;margin-bottom:5px;
+}
+.wa-copy{font-size:.72rem;font-weight:300;color:var(--dim);letter-spacing:.03em}
+.wa-badge{
+  display:inline-flex;align-items:center;gap:6px;margin-top:12px;
+  background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);
+  border-radius:100px;padding:4px 12px;
+  font-family:'Cinzel',serif;font-size:.48rem;
+  letter-spacing:.2em;text-transform:uppercase;color:#4ade80;
+}
+.wa-emblem{
+  display:flex;align-items:center;justify-content:center;
+  padding:0 24px 0 10px;flex-shrink:0;
+}
+.wa-emblem svg{
+  width:46px;height:46px;
+  filter:drop-shadow(0 0 20px rgba(74,222,128,.45));
+  transition:transform .4s ease,filter .4s ease;
+}
+.wa-grand:hover .wa-emblem svg{transform:scale(1.12) rotate(-5deg);filter:drop-shadow(0 0 30px rgba(74,222,128,.8))}
+
+/* ═══════════════════════════════════
+   PRODUCT DIPTYCH — glass cards
+═══════════════════════════════════ */
+.diptych{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  margin:0 20px;width:calc(100% - 40px);
+}
+
+.dip-card{
+  border-radius:20px;padding:0;
+  text-decoration:none;color:inherit;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease;
+  cursor:pointer;min-height:200px;
+  backdrop-filter:blur(12px);
+}
+.dip-card:hover{transform:translateY(-8px) scale(1.02)}
+.dip-card:active{transform:translateY(-2px)}
+
+.dip-flores{
+  background:linear-gradient(160deg,rgba(20,6,16,0.92) 0%,rgba(14,5,12,0.95) 100%);
+  border:1px solid rgba(224,53,122,.28);
+}
+.dip-flores:hover{box-shadow:0 24px 70px rgba(0,0,0,.6),0 0 0 1px rgba(224,53,122,.6),0 0 50px rgba(224,53,122,.1)}
+
+.dip-bandejas{
+  background:linear-gradient(160deg,rgba(20,5,10,0.92) 0%,rgba(14,5,10,0.95) 100%);
+  border:1px solid rgba(224,40,110,.25);
+}
+.dip-bandejas:hover{box-shadow:0 24px 70px rgba(0,0,0,.6),0 0 0 1px rgba(224,40,110,.5),0 0 50px rgba(224,40,110,.1)}
+
+.dip-band{
+  height:3px;width:100%;
+}
+.dip-flores .dip-band{background:linear-gradient(90deg,transparent,var(--gold),var(--gold3),var(--gold),transparent)}
+.dip-bandejas .dip-band{background:linear-gradient(90deg,transparent,var(--blush),var(--blush2),var(--blush),transparent)}
+
+.dip-body{padding:22px 18px 20px;flex:1;display:flex;flex-direction:column;gap:14px}
+
+.dip-icon-ring{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.dip-flores .dip-icon-ring{
+  background:radial-gradient(circle,rgba(224,53,122,.2),transparent 70%);
+  border:1px solid rgba(224,53,122,.25);
+}
+.dip-bandejas .dip-icon-ring{
+  background:radial-gradient(circle,rgba(224,40,110,.15),transparent 70%);
+  border:1px solid rgba(224,40,110,.22);
+}
+.dip-icon-ring svg{width:26px;height:26px;transition:transform .4s ease}
+.dip-card:hover .dip-icon-ring svg{transform:scale(1.15) rotate(-5deg)}
+
+.dip-label{
+  font-family:'Cormorant Upright',serif;font-size:1.1rem;
+  color:var(--cream);line-height:1.2;
+}
+.dip-desc{font-size:.65rem;color:var(--dim);font-weight:300;line-height:1.6;letter-spacing:.03em;flex:1}
+
+.dip-cta{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:14px;border-top:1px solid rgba(255,255,255,.06);
+}
+.dip-cta-txt{
+  font-family:'Cinzel',serif;font-size:.48rem;
+  letter-spacing:.25em;text-transform:uppercase;font-weight:600;
+}
+.dip-flores .dip-cta-txt{color:var(--gold)}
+.dip-bandejas .dip-cta-txt{color:var(--blush2)}
+.dip-cta-arr{
+  width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .3s ease;
+}
+.dip-flores .dip-cta-arr{background:rgba(224,53,122,.12);border:1px solid rgba(224,53,122,.25)}
+.dip-bandejas .dip-cta-arr{background:rgba(224,40,110,.12);border:1px solid rgba(224,40,110,.22)}
+.dip-cta-arr svg{width:11px;height:11px;transition:transform .3s}
+.dip-card:hover .dip-cta-arr{transform:scale(1.1)}
+.dip-card:hover .dip-cta-arr svg{transform:translate(2px,-2px)}
+
+/* ═══════════════════════════════════
+   SOCIAL TRILOGY — capsule buttons
+═══════════════════════════════════ */
+.trilogy{
+  display:flex;flex-direction:column;gap:10px;
+  margin:0 20px;width:calc(100% - 40px);
+}
+
+.tri-card{
+  display:grid;grid-template-columns:auto 1fr auto;
+  align-items:center;gap:16px;
+  padding:15px 20px;
+  border-radius:100px;
+  text-decoration:none;color:inherit;
+  position:relative;overflow:hidden;
+  transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,background .3s ease;
+  cursor:pointer;
+  background:rgba(16,4,12,0.78);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+.tri-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+  transition:opacity .3s;opacity:.6;
+  border-radius:100px 0 0 100px;
+}
+.tri-card:hover::before{opacity:1}
+.tri-card:hover{transform:translateX(6px) scale(1.01)}
+.tri-card:active{transform:translateX(2px)}
+
+.c-ig{border:1px solid rgba(193,24,91,.28)}
+.c-ig::before{background:linear-gradient(180deg,#c2185b,#e91e8c)}
+.c-ig:hover{background:rgba(255,255,255,.10);box-shadow:0 12px 50px rgba(0,0,0,.6),0 0 0 1px rgba(193,24,91,.50),-6px 0 24px rgba(193,24,91,.12)}
+
+.c-ig2{border:1px solid rgba(212,168,67,.22)}
+.c-ig2::before{background:linear-gradient(180deg,#c8973a,#f0c96e)}
+.c-ig2:hover{background:rgba(255,255,255,.10);box-shadow:0 12px 50px rgba(0,0,0,.6),0 0 0 1px rgba(212,168,67,.45),-6px 0 24px rgba(212,168,67,.10)}
+.c-ig2 .tri-badge{color:var(--gold3);background:rgba(212,168,67,.10);border:1px solid rgba(212,168,67,.25)}
+
+.c-tk{border:1px solid rgba(193,24,91,.22)}
+.c-tk::before{background:linear-gradient(180deg,#ad1457,#f48fb1)}
+.c-tk:hover{background:rgba(255,255,255,.10);box-shadow:0 12px 50px rgba(0,0,0,.6),0 0 0 1px rgba(193,24,91,.45),-6px 0 24px rgba(193,24,91,.10)}
+
+.c-fb{border:1px solid rgba(100,130,220,.22)}
+.c-fb::before{background:linear-gradient(180deg,#5b8dd9,#7aaaea)}
+.c-fb:hover{background:rgba(255,255,255,.10);box-shadow:0 12px 50px rgba(0,0,0,.6),0 0 0 1px rgba(100,130,220,.40),-6px 0 24px rgba(100,130,220,.10)}
+
+.tri-ico{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
+  transition:transform .35s ease;
+  flex-shrink:0;
+}
+.tri-card:hover .tri-ico{transform:scale(1.08) rotate(-4deg)}
+.tri-ico svg{width:21px;height:21px}
+
+.tri-info{overflow:hidden}
+.tri-name{
+  font-family:'Cormorant Upright',serif;font-size:1rem;
+  color:var(--cream);display:block;line-height:1.2;
+}
+.tri-desc{font-size:.65rem;color:var(--dim);font-weight:300;display:block;margin-top:2px;letter-spacing:.03em}
+
+.tri-badge{
+  font-family:'Cinzel',serif;font-size:.45rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:5px 14px;border-radius:100px;white-space:nowrap;
+  flex-shrink:0;
+  transition:transform .3s ease;
+}
+.tri-card:hover .tri-badge{transform:translateX(-3px)}
+.c-ig .tri-badge{color:#f48fb1;background:rgba(193,24,91,.10);border:1px solid rgba(193,24,91,.25)}
+.c-tk .tri-badge{color:#f48fb1;background:rgba(193,24,91,.10);border:1px solid rgba(193,24,91,.22)}
+.c-fb .tri-badge{color:#7aaaea;background:rgba(100,130,220,.10);border:1px solid rgba(100,130,220,.22)}
+
+/* ═══════════════════════════════════
+   FOOTER COLOPHON
+═══════════════════════════════════ */
+.colophon{
+  margin-top:52px;text-align:center;
+  padding:0 20px;width:100%;
+  animation:curtainUp 1s .6s cubic-bezier(.16,1,.3,1) both;
+}
+.col-line{
+  width:100%;height:1px;
+  background:linear-gradient(90deg,transparent 0%,var(--brd-gold) 20%,rgba(212,168,67,.5) 50%,var(--brd-gold) 80%,transparent 100%);
+  margin-bottom:22px;
+}
+.col-flower{
+  display:flex;justify-content:center;margin-bottom:14px;
+}
+.col-flower svg{width:28px;height:28px;opacity:.4;color:var(--gold3)}
+.col-text{
+  font-family:'Cinzel',serif;font-size:.5rem;
+  letter-spacing:.4em;text-transform:uppercase;
+  color:rgba(255,245,249,0.35);font-weight:400;
+}
+
+/* ═══════════════════════════════════
+   ENTRANCE ANIMATIONS
+═══════════════════════════════════ */
+@keyframes curtainUp{
+  from{opacity:0;transform:translateY(32px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeIn{
+  from{opacity:0} to{opacity:1}
+}
+
+.sec-head{animation:curtainUp .9s cubic-bezier(.16,1,.3,1) both}
+.sec-head.s1{animation-delay:.30s}
+.sec-head.s2{animation-delay:.40s}
+.sec-head.s3{animation-delay:.50s}
+.wa-grand{animation:curtainUp .9s .34s cubic-bezier(.16,1,.3,1) both}
+.diptych{animation:curtainUp .9s .44s cubic-bezier(.16,1,.3,1) both}
+.trilogy{animation:curtainUp .9s .54s cubic-bezier(.16,1,.3,1) both}
+
+/* Custom cursor */
+body{cursor:none}
+#crs{
+  position:fixed;z-index:9999;pointer-events:none;
+  width:10px;height:10px;border-radius:50%;
+  background:rgba(193,24,91,.8);
+  transform:translate(-50%,-50%);
+  transition:transform .1s ease,width .3s,height .3s,background .3s;
+  mix-blend-mode:screen;
+}
+#crs2{
+  position:fixed;z-index:9998;pointer-events:none;
+  width:32px;height:32px;border-radius:50%;
+  border:1px solid rgba(193,24,91,.35);
+  transform:translate(-50%,-50%);
+  transition:transform .25s ease,width .3s,height .3s,opacity .3s;
+}
+
+
+/* ═══════════════════════════════════
+   CATALOG CAROUSEL
+═══════════════════════════════════ */
+
+
+.cat-carousel-wrap{
+  width:100%;overflow:hidden;position:relative;
+  animation:curtainUp .9s .46s cubic-bezier(.16,1,.3,1) both;
+}
+
+.cat-track{
+  display:flex;gap:14px;
+  padding:4px 20px 16px;
+  overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+.cat-track::-webkit-scrollbar{display:none}
+
+/* Product cards — organic glass */
+.cat-card{
+  flex-shrink:0;
+  width:228px;
+  scroll-snap-align:start;
+  border-radius:28px;
+  overflow:hidden;
+  position:relative;
+  background:linear-gradient(155deg,rgba(22,5,18,0.95) 0%,rgba(14,3,12,0.98) 100%);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--brd);
+  display:flex;flex-direction:column;
+  transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s ease;
+  cursor:pointer;
+  box-shadow:0 4px 24px rgba(0,0,0,.4);
+}
+.cat-card:hover{
+  transform:translateY(-8px) scale(1.01);
+  box-shadow:0 32px 80px rgba(0,0,0,.65),0 0 0 1px rgba(193,24,91,.55),0 0 50px rgba(193,24,91,.12);
+}
+.cat-card.hidden{display:none}
+
+.cat-img-wrap{
+  position:relative;
+  aspect-ratio:1;overflow:hidden;
+  background:#0d060c;
+}
+.cat-img{
+  width:100%;height:100%;
+  background-size:cover;background-position:center;
+  transition:transform .6s cubic-bezier(.16,1,.3,1);
+}
+.cat-card:hover .cat-img{transform:scale(1.07)}
+
+.cat-num{
+  position:absolute;top:10px;left:10px;
+  font-family:'Cinzel',serif;font-size:.44rem;
+  letter-spacing:.2em;color:var(--cream);
+  background:rgba(0,0,0,.6);
+  border:1px solid rgba(212,168,67,.35);
+  padding:3px 9px;border-radius:100px;
+  backdrop-filter:blur(8px);
+}
+
+.cat-zoom{
+  position:absolute;top:10px;right:10px;
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:scale(.8);
+  transition:opacity .3s,transform .3s;
+  backdrop-filter:blur(6px);
+}
+.cat-card:hover .cat-zoom{opacity:1;transform:scale(1)}
+.cat-zoom svg{width:13px;height:13px}
+
+.cat-img-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.75) 100%);
+  pointer-events:none;
+}
+
+.cat-body{
+  padding:16px 18px 18px;
+  display:flex;flex-direction:column;gap:9px;
+  flex:1;
+}
+.cat-tag{
+  font-family:'Cinzel',serif;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold3);opacity:.85;
+}
+.cat-title{
+  font-family:'Cormorant Upright',serif;
+  font-size:1.12rem;font-weight:600;
+  color:var(--cream);line-height:1.25;
+}
+.cat-desc{
+  font-size:.64rem;font-weight:300;
+  color:rgba(255,245,249,0.68);line-height:1.75;
+  letter-spacing:.025em;flex:1;
+}
+
+/* Reserve button — capsule */
+.cat-reserve{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 0;border-radius:100px;
+  background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(34,197,94,.07));
+  border:1px solid rgba(34,197,94,.3);
+  color:#4ade80;
+  font-family:'Cinzel',serif;font-size:.46rem;
+  letter-spacing:.25em;text-transform:uppercase;
+  text-decoration:none;
+  transition:all .3s ease;
+  cursor:pointer;
+  margin-top:4px;
+}
+.cat-reserve:hover{
+  background:linear-gradient(135deg,rgba(34,197,94,.25),rgba(34,197,94,.12));
+  border-color:rgba(34,197,94,.65);
+  box-shadow:0 0 20px rgba(34,197,94,.15);
+  transform:none;
+}
+.cat-reserve svg{width:14px;height:14px;flex-shrink:0}
+
+.cat-dots{
+  display:flex;gap:5px;justify-content:center;
+  margin-top:4px;padding:0 20px;
+  flex-wrap:wrap;
+}
+.cat-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(224,53,122,.2);border:1px solid rgba(224,53,122,.25);
+  transition:all .3s ease;cursor:pointer;
+  flex-shrink:0;
+}
+.cat-dot.active{
+  background:var(--gold);border-color:var(--gold);
+  width:18px;border-radius:3px;
+}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(10,2,8,.96);
+  backdrop-filter:blur(20px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+  padding:20px;
+  flex-direction:column;gap:16px;
+}
+.lightbox.open{opacity:1;pointer-events:all}
+.lightbox img{
+  max-width:100%;max-height:75vh;
+  border-radius:16px;border:1px solid var(--brd);
+  box-shadow:0 0 80px rgba(0,0,0,.9);
+  transform:scale(.92);transition:transform .35s cubic-bezier(.16,1,.3,1);
+  object-fit:contain;
+}
+.lightbox.open img{transform:scale(1)}
+.lb-close{
+  position:absolute;top:20px;right:20px;
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:background .2s;
+}
+.lb-close:hover{background:rgba(255,255,255,.16)}
+.lb-close svg{width:16px;height:16px}
+.lb-info{text-align:center}
+.lb-title{font-family:'Cormorant Upright',serif;font-size:1.1rem;color:var(--cream);display:block;margin-bottom:4px}
+.lb-desc{font-size:.65rem;font-weight:300;color:var(--dim)}
+.lb-reserve{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 28px;border-radius:100px;
+  background:linear-gradient(135deg,rgba(34,197,94,.15),rgba(34,197,94,.08));
+  border:1px solid rgba(34,197,94,.35);
+  color:#4ade80;
+  font-family:'Cinzel',serif;font-size:.5rem;
+  letter-spacing:.25em;text-transform:uppercase;
+  text-decoration:none;
+  transition:all .3s ease;
+  margin-top:4px;
+}
+.lb-reserve:hover{
+  background:linear-gradient(135deg,rgba(34,197,94,.25),rgba(34,197,94,.15));
+  border-color:rgba(34,197,94,.65);
+}
+
+/* ═══════════════════════════════════
+   LOCATION
+═══════════════════════════════════ */
+.loc-wrap{
+  width:calc(100% - 40px);margin:0 20px;
+  animation:curtainUp .9s .52s cubic-bezier(.16,1,.3,1) both;
+}
+.loc-card{
+  display:flex;flex-direction:column;
+  border-radius:24px;overflow:hidden;
+  text-decoration:none;color:inherit;
+  border:1px solid var(--brd-gold);
+  transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease;
+  cursor:pointer;
+  backdrop-filter:blur(12px);
+  box-shadow:0 4px 20px rgba(0,0,0,.35);
+}
+.loc-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 20px 60px rgba(0,0,0,.65),0 0 0 1px rgba(212,168,67,.45);
+}
+.loc-card:active{transform:translateY(-2px)}
+
+.loc-map-preview{
+  height:100px;
+  background:linear-gradient(145deg,rgba(14,6,12,0.95),rgba(10,5,10,0.98));
+  position:relative;overflow:hidden;
+}
+.loc-map-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(212,168,67,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(212,168,67,.07) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.loc-road{position:absolute;background:rgba(212,168,67,.10)}
+.loc-road-h{left:0;right:0;height:2px}
+.loc-road-v{top:0;bottom:0;width:2px}
+
+.loc-pin{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-60%);
+}
+.loc-pin-icon{
+  position:relative;z-index:2;
+  filter:drop-shadow(0 4px 12px rgba(193,24,91,.55));
+  animation:pinbounce 2.5s ease-in-out infinite;
+}
+.loc-pin-icon svg{width:32px;height:32px}
+@keyframes pinbounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.loc-pin-pulse{
+  position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);
+  width:20px;height:8px;border-radius:50%;
+  background:rgba(193,24,91,.28);
+  animation:pinshadow 2.5s ease-in-out infinite;
+}
+@keyframes pinshadow{0%,100%{transform:translateX(-50%) scale(1);opacity:.5}50%{transform:translateX(-50%) scale(.7);opacity:.2}}
+
+.loc-info{
+  display:flex;align-items:center;gap:14px;
+  padding:18px 20px;
+  background:rgba(12,3,10,0.94);
+}
+.loc-eyebrow{
+  font-family:'Cinzel',serif;font-size:.48rem;
+  letter-spacing:.35em;text-transform:uppercase;
+  color:var(--gold3);display:block;margin-bottom:5px;opacity:.9;
+}
+.loc-address{
+  font-family:'Cormorant Upright',serif;font-size:1rem;font-weight:600;
+  color:var(--cream);display:block;margin-bottom:3px;
+}
+.loc-sub{font-size:.65rem;color:rgba(255,245,249,0.55);font-weight:300;letter-spacing:.03em}
+.loc-arr{
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(212,168,67,.10);border:1px solid rgba(212,168,67,.28);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .3s,transform .3s;
+}
+.loc-card:hover .loc-arr{background:rgba(212,168,67,.20);transform:translateX(3px)}
+.loc-arr svg{width:16px;height:16px}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:rgba(193,24,91,.35);border-radius:2px}
+
+/* ═══════════════════════════════════
+   CATALOG GROUP HEADERS
+═══════════════════════════════════ */
+.cat-group-head{
+  display:flex;align-items:center;gap:14px;
+  width:calc(100% - 40px);margin:32px 20px 12px;
+  padding:16px 20px;
+  background:linear-gradient(135deg,rgba(10,2,8,0.92) 0%,rgba(18,4,14,0.88) 100%);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--brd2);
+  border-left:3px solid var(--gold3);
+  border-radius:0 16px 16px 0;
+  animation:curtainUp .8s cubic-bezier(.16,1,.3,1) both;
+  box-shadow:0 4px 20px rgba(0,0,0,.3),inset 0 1px 0 rgba(212,168,67,.08);
+}
+.cat-group-num{
+  font-family:'Cinzel',serif;
+  font-size:1.4rem;font-weight:900;
+  background:var(--foil);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;background-size:200%;
+  animation:foilshift 5s ease-in-out infinite;
+  line-height:1;flex-shrink:0;
+  min-width:32px;
+}
+.cat-group-info{flex:1;display:flex;flex-direction:column;gap:3px}
+.cat-group-title{
+  font-family:'Cormorant Upright',serif;
+  font-size:1.08rem;font-weight:600;
+  color:var(--cream);line-height:1.2;
+}
+.cat-group-sub{
+  font-size:.58rem;font-weight:300;
+  color:rgba(255,245,249,0.55);letter-spacing:.06em;
+}
+.cat-group-count{
+  font-family:'Cinzel',serif;font-size:.42rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold3);
+  background:rgba(212,168,67,.10);
+  border:1px solid rgba(212,168,67,.25);
+  padding:5px 12px;border-radius:100px;
+  white-space:nowrap;flex-shrink:0;
+}
+
+/* ═══════════════════════════════════
+   WAVE DIVIDER BETWEEN SECTIONS
+═══════════════════════════════════ */
+.wave-sep{
+  width:100%;overflow:hidden;
+  line-height:0;margin:8px 0;
+  opacity:.18;pointer-events:none;
+}
+.wave-sep svg{display:block;width:100%;height:28px}
+
+/* ═══════════════════════════════════
+   PRODUCT BADGES (Nuevo / Más vendido)
+═══════════════════════════════════ */
+.cat-badge{
+  position:absolute;top:10px;right:10px;
+  font-family:'Cinzel',serif;font-size:.36rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  padding:4px 10px;border-radius:100px;
+  backdrop-filter:blur(8px);
+  z-index:3;
+  pointer-events:none;
+}
+.cat-badge.nuevo{
+  background:rgba(193,24,91,.75);
+  border:1px solid rgba(244,143,177,.5);
+  color:#fff;
+  box-shadow:0 2px 12px rgba(193,24,91,.4);
+}
+.cat-badge.top{
+  background:rgba(180,130,20,.75);
+  border:1px solid rgba(240,201,110,.5);
+  color:#fff8e1;
+  box-shadow:0 2px 12px rgba(180,130,20,.4);
+}
+
+/* ═══════════════════════════════════
+   ORGANIC IMAGE OVERLAY — bottom fade
+═══════════════════════════════════ */
+.cat-img-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 45%,rgba(6,2,8,.85) 100%);
+  pointer-events:none;
+}
+
+/* ═══════════════════════════════════
+   PAGE — add gentle top padding
+═══════════════════════════════════ */
+.page{
+  position:relative;z-index:2;
+  max-width:440px;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;
+  padding-bottom:90px;
+}
+
+/* ═══════════════════════════════════
+   LUXURY SECTION SEPARATOR (SVG line)
+═══════════════════════════════════ */
+.orn-sep{
+  display:flex;align-items:center;gap:12px;
+  width:calc(100% - 60px);margin:4px 30px 0;
+  opacity:.45;
+}
+.orn-sep-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--brd-gold))}
+.orn-sep-line.r{background:linear-gradient(270deg,transparent,var(--brd-gold))}
+.orn-sep-ico{
+  font-size:.55rem;color:var(--gold3);
+  letter-spacing:.1em;flex-shrink:0;
+}
+
+/* ═══════════════════════════════════
+   CATALOG DOTS — slightly larger
+═══════════════════════════════════ */
+.cat-dots{
+  display:flex;gap:6px;justify-content:center;
+  margin-top:6px;padding:0 20px;
+  flex-wrap:wrap;
+}
+.cat-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(193,24,91,.20);border:1px solid rgba(193,24,91,.28);
+  transition:all .35s ease;cursor:pointer;
+  flex-shrink:0;
+}
+.cat-dot.active{
+  background:var(--gold3);border-color:var(--gold3);
+  width:20px;border-radius:3px;
+  box-shadow:0 0 8px rgba(212,168,67,.4);
+}
+
+/* ═══════════════════════════════════
+   LIGHTBOX — updated
+═══════════════════════════════════ */
+.lb-title{font-family:'Cormorant Upright',serif;font-size:1.12rem;color:var(--cream);display:block;margin-bottom:4px}
+.lb-desc{font-size:.65rem;font-weight:300;color:rgba(255,245,249,0.62)}
+
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="crs"></div>
+<div id="crs2"></div>
+
+<!-- Bokeh background -->
+<div class="bokeh-wrap">
+  <div class="bok" style="width:500px;height:500px;top:-10%;left:-15%;background:rgba(193,24,91,0.20);--dx:30px;--dy:40px;--ds:1.1;animation-duration:9s"></div>
+  <div class="bok" style="width:400px;height:400px;top:20%;right:-10%;background:rgba(233,30,140,0.14);--dx:-20px;--dy:25px;--ds:0.95;animation-duration:11s"></div>
+  <div class="bok" style="width:600px;height:300px;top:45%;left:10%;background:rgba(140,10,70,0.12);--dx:15px;--dy:-30px;--ds:1.05;animation-duration:14s"></div>
+  <div class="bok" style="width:350px;height:350px;bottom:-5%;right:5%;background:rgba(212,168,67,0.08);--dx:-25px;--dy:-20px;--ds:1.08;animation-duration:10s"></div>
+  <div class="bok" style="width:250px;height:250px;top:70%;left:-5%;background:rgba(244,143,177,0.10);--dx:20px;--dy:15px;--ds:0.92;animation-duration:13s"></div>
+</div>
+
+<!-- Floating petals -->
+<div id="petal-layer"></div>
+
+<div class="noise"></div>
+
+<div class="page">
+
+  <!-- ═══ MASTHEAD ═══ -->
+  <div class="masthead">
+
+    <!-- Corner ornaments -->
+    <div class="corner c-tl">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 26 L2 2 L26 2" stroke="rgba(224,53,122,0.45)" stroke-width="1" fill="none"/>
+        <path d="M2 2 L8 8" stroke="rgba(224,53,122,0.25)" stroke-width="1"/>
+        <circle cx="2" cy="2" r="1.5" fill="rgba(224,53,122,0.6)"/>
+      </svg>
+    </div>
+    <div class="corner c-tr">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 26 L2 2 L26 2" stroke="rgba(224,53,122,0.45)" stroke-width="1" fill="none"/>
+        <path d="M2 2 L8 8" stroke="rgba(224,53,122,0.25)" stroke-width="1"/>
+        <circle cx="2" cy="2" r="1.5" fill="rgba(224,53,122,0.6)"/>
+      </svg>
+    </div>
+    <div class="corner c-bl">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 26 L2 2 L26 2" stroke="rgba(224,53,122,0.45)" stroke-width="1" fill="none"/>
+        <path d="M2 2 L8 8" stroke="rgba(224,53,122,0.25)" stroke-width="1"/>
+        <circle cx="2" cy="2" r="1.5" fill="rgba(224,53,122,0.6)"/>
+      </svg>
+    </div>
+    <div class="corner c-br">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 26 L2 2 L26 2" stroke="rgba(224,53,122,0.45)" stroke-width="1" fill="none"/>
+        <path d="M2 2 L8 8" stroke="rgba(224,53,122,0.25)" stroke-width="1"/>
+        <circle cx="2" cy="2" r="1.5" fill="rgba(224,53,122,0.6)"/>
+      </svg>
+    </div>
+
+    <!-- Logo -->
+    <div class="logo-wrap">
+      <div class="logo-halo"></div>
+      <div class="logo-frame">
+        <img class="logo-img" src="logo1.jpg" alt="Fleur de Charme" onerror="this.style.display='none';this.parentElement.style.background='conic-gradient(#ff7db1 0deg,#ffa0c8 40deg,#ff84b3 80deg,#ff7db1 120deg,#f080b0 160deg,#ff7db1 200deg,#ff84b3 240deg,#ffa0c8 280deg,#ff7db1 320deg,#ff8eb9 360deg)'"/>
+      </div>
+      <div class="logo-live"></div>
+    </div>
+
+    <!-- Brand -->
+    <div class="brand-block">
+      <span class="brand-overline">✦ &nbsp; Flores Eternas &nbsp; ✦</span>
+      <h1 class="brand-title">
+        <span class="word1">Fleur</span>
+        <span class="word2">de</span>
+        <span class="word3">Charme</span>
+      </h1>
+      <span class="brand-sub">Flores Eternas &nbsp;&middot;&nbsp; Bandejas Decorativas</span>
+    </div>
+
+    <div class="orn-div">
+      <div class="orn-div-line"></div>
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.8 5.5H16l-4.6 3.4 1.8 5.5L8 11 2.8 14.4l1.8-5.5L0 5.5h6.2z"/></svg>
+      <div class="orn-div-line r"></div>
+    </div>
+
+    <p class="bio-text">
+      <em>Fleur de Charmé Rosas eternas</em> que cuentan historias. Regala momentos, no cosas. <em>Exclusividad y elegancia </em> en cada detalle ¡Ordena y crea magia
+    </p>
+
+    <div class="status-row">
+      <span class="s-dot"></span>
+      <span class="s-txt">Belleza que dura para siempre</span>
+    </div>
+
+  </div>
+
+  <!-- ═══ TRIPTYCH ═══ -->
+  <div class="triptych">
+    <div class="tri-cell">
+      <div class="tri-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      </div>
+      <span class="tri-val">100%</span>
+      <span class="tri-lbl">Artesanal</span>
+    </div>
+    <div class="tri-sep"></div>
+    <div class="tri-cell">
+      <div class="tri-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <span class="tri-val">∞</span>
+      <span class="tri-lbl">Con Amor</span>
+    </div>
+    <div class="tri-sep"></div>
+    <div class="tri-cell">
+      <div class="tri-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <span class="tri-val">YA</span>
+      <span class="tri-lbl">Pedidos</span>
+    </div>
+  </div>
+
+  <!-- ═══ CONTACT ═══ -->
+  <div class="orn-sep" style="margin-top:28px">
+    <div class="orn-sep-line"></div>
+    <span class="orn-sep-ico">✦</span>
+    <div class="orn-sep-line r"></div>
+  </div>
+  <div class="sec-head s1">
+    <div class="sh-rule"></div>
+    <div class="sh-inner">
+      <div class="sh-deco"></div>
+      <span class="sh-roman">I. Contacto</span>
+      <div class="sh-deco"></div>
+    </div>
+    <div class="sh-rule"></div>
+  </div>
+
+  <a href="https://wa.link/3pzjqe" class="wa-grand" target="_blank">
+    <div class="wa-foil"></div>
+    <div class="wa-content">
+      <span class="wa-eyebrow">Pedidos · Consultas · Presupuestos</span>
+      <span class="wa-headline">WhatsApp Directo</span>
+      <span class="wa-copy">Flores eternas · Envíos · Personalizado</span>
+      <div class="wa-badge">
+        <span class="s-dot" style="width:5px;height:5px;flex-shrink:0"></span>
+        En línea ahora mismo
+      </div>
+    </div>
+    <div class="wa-emblem">
+      <svg viewBox="0 0 24 24" fill="#22c55e">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.859L.057 23.57a.5.5 0 0 0 .614.614l5.684-1.476A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.98 0-3.842-.582-5.408-1.585l-.374-.232-3.882 1.009 1.01-3.867-.243-.385A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+      </svg>
+    </div>
+  </a>
+
+  <!-- ═══ CATALOG ═══ -->
+  <div class="orn-sep">
+    <div class="orn-sep-line"></div>
+    <span class="orn-sep-ico">✦</span>
+    <div class="orn-sep-line r"></div>
+  </div>
+  <div class="sec-head s2">
+    <div class="sh-rule"></div>
+    <div class="sh-inner">
+      <div class="sh-deco"></div>
+      <span class="sh-roman">II. Catálogo</span>
+      <div class="sh-deco"></div>
+    </div>
+    <div class="sh-rule"></div>
+  </div>
+
+  <!-- GROUP 1: Arreglos -->
+  <div class="cat-group-head">
+    <span class="cat-group-num">01</span>
+    <div class="cat-group-info">
+      <span class="cat-group-title">Arreglos</span>
+      <span class="cat-group-sub">Composiciones florales únicas</span>
+    </div>
+    <span class="cat-group-count">20 piezas</span>
+  </div>
+  <div class="cat-carousel-wrap">
+    <div class="cat-track" id="track1"></div>
+  </div>
+  <div class="cat-dots" id="dots1"></div>
+
+  <!-- GROUP 2: Cajas -->
+  <div class="cat-group-head">
+    <span class="cat-group-num">02</span>
+    <div class="cat-group-info">
+      <span class="cat-group-title">Cajas</span>
+      <span class="cat-group-sub">Para cada ocasión especial</span>
+    </div>
+    <span class="cat-group-count">20 piezas</span>
+  </div>
+  <div class="cat-carousel-wrap">
+    <div class="cat-track" id="track2"></div>
+  </div>
+  <div class="cat-dots" id="dots2"></div>
+
+  <!-- GROUP 3: Personalizados -->
+  <div class="cat-group-head">
+    <span class="cat-group-num">03</span>
+    <div class="cat-group-info">
+      <span class="cat-group-title">Personalizados</span>
+      <span class="cat-group-sub">El regalo perfecto, bien envuelto</span>
+    </div>
+    <span class="cat-group-count">20 piezas</span>
+  </div>
+  <div class="cat-carousel-wrap">
+    <div class="cat-track" id="track3"></div>
+  </div>
+  <div class="cat-dots" id="dots3"></div>
+
+  <!-- GROUP 4: Bandejas -->
+  <div class="cat-group-head">
+    <span class="cat-group-num">04</span>
+    <div class="cat-group-info">
+      <span class="cat-group-title">Bandejas</span>
+      <span class="cat-group-sub">Decoración de lujo para regalar</span>
+    </div>
+    <span class="cat-group-count">11 piezas</span>
+  </div>
+  <div class="cat-carousel-wrap">
+    <div class="cat-track" id="track4"></div>
+  </div>
+  <div class="cat-dots" id="dots4"></div>
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lb-close" onclick="closeLight()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </div>
+    <img id="lbImg" src="" alt=""/>
+    <div class="lb-info">
+      <span class="lb-title" id="lbTitle"></span>
+      <span class="lb-desc" id="lbDesc"></span>
+    </div>
+    <a class="lb-reserve" id="lbReserve" href="https://wa.link/3pzjqe" target="_blank">
+      <svg viewBox="0 0 24 24" fill="#4ade80"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.859L.057 23.57a.5.5 0 0 0 .614.614l5.684-1.476A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.98 0-3.842-.582-5.408-1.585l-.374-.232-3.882 1.009 1.01-3.867-.243-.385A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Reservar este arreglo
+    </a>
+  </div>
+
+  <!-- ═══ LOCATION ═══ -->
+  <div class="sec-head" style="animation-delay:.52s;animation:curtainUp .9s .52s cubic-bezier(.16,1,.3,1) both">
+    <div class="sh-rule"></div>
+    <div class="sh-inner">
+      <div class="sh-deco"></div>
+      <span class="sh-roman">IV. Ubicación</span>
+      <div class="sh-deco"></div>
+    </div>
+    <div class="sh-rule"></div>
+  </div>
+
+  <div class="loc-wrap">
+    <a href="https://maps.app.goo.gl/gA9ouJ7kzN5FrqM6A" class="loc-card" target="_blank">
+      <div class="loc-map-preview">
+        <div class="loc-map-grid"></div>
+        <div class="loc-map-roads">
+          <div class="loc-road loc-road-h" style="top:38%"></div>
+          <div class="loc-road loc-road-h" style="top:62%"></div>
+          <div class="loc-road loc-road-v" style="left:35%"></div>
+          <div class="loc-road loc-road-v" style="left:65%"></div>
+        </div>
+        <div class="loc-pin">
+          <div class="loc-pin-icon">
+            <svg viewBox="0 0 24 24" fill="#e0357a"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+          </div>
+          <div class="loc-pin-pulse"></div>
+        </div>
+        <div class="loc-map-overlay"></div>
+      </div>
+      <div class="loc-info">
+        <div class="loc-text">
+          <span class="loc-eyebrow">Encuéntranos</span>
+          <span class="loc-address">Moca, Espaillat · Villa Carolina 3</span>
+          <span class="loc-sub">Toca para ver ubicación · Envíos disponibles</span>
+        </div>
+        <div class="loc-arr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#e0357a" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- ═══ SOCIAL ═══ -->
+  <div class="sec-head s3" style="animation-delay:.58s">
+    <div class="sh-rule"></div>
+    <div class="sh-inner">
+      <div class="sh-deco"></div>
+      <span class="sh-roman">V. Síguenos</span>
+      <div class="sh-deco"></div>
+    </div>
+    <div class="sh-rule"></div>
+  </div>
+
+  <div class="trilogy">
+
+    <a href="https://www.instagram.com/fleur_de_charme24" class="tri-card c-ig" target="_blank">
+      <div class="tri-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#d4847a" stroke-width="1.8" stroke-linecap="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="5"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="#d4847a" stroke="none"/>
+        </svg>
+      </div>
+      <div class="tri-info">
+        <span class="tri-name">Instagram · Principal</span>
+        <span class="tri-desc">@fleur_de_charme24 · Galería de creaciones</span>
+      </div>
+      <div class="tri-badge">Seguir</div>
+    </a>
+
+    <a href="https://www.instagram.com/fleur_de_charme24_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="tri-card c-ig2" target="_blank">
+      <div class="tri-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#e08060" stroke-width="1.8" stroke-linecap="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="5"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="#e08060" stroke="none"/>
+        </svg>
+      </div>
+      <div class="tri-info">
+        <span class="tri-name">Instagram · Secundaria</span>
+        <span class="tri-desc">@fleur_de_charme · Diseños exclusivos</span>
+      </div>
+      <div class="tri-badge">Seguir</div>
+    </a>
+
+    <a href="https://www.tiktok.com/@fleur.de_charme24?_r=1&_t=ZS-94Wm44F9UMU" class="tri-card c-tk" target="_blank">
+      <div class="tri-ico">
+        <svg viewBox="0 0 24 24" fill="#f070a8">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
+        </svg>
+      </div>
+      <div class="tri-info">
+        <span class="tri-name">TikTok</span>
+        <span class="tri-desc">Proceso creativo · Behind the scenes</span>
+      </div>
+      <div class="tri-badge">Ver</div>
+    </a>
+
+  </div>
+
+  <!-- ═══ COLOPHON ═══ -->
+  <div class="colophon">
+    <div class="col-line"></div>
+    <div class="col-flower">
+      <svg viewBox="0 0 32 32" fill="none">
+        <ellipse cx="16" cy="6" rx="3" ry="5.5" fill="#e0357a"/>
+        <ellipse cx="16" cy="26" rx="3" ry="5.5" fill="#e0357a"/>
+        <ellipse cx="6" cy="16" rx="5.5" ry="3" fill="#d42070"/>
+        <ellipse cx="26" cy="16" rx="5.5" ry="3" fill="#d42070"/>
+        <ellipse cx="9" cy="9" rx="3" ry="5.5" fill="#f05590" transform="rotate(-45 9 9)"/>
+        <ellipse cx="23" cy="9" rx="3" ry="5.5" fill="#f05590" transform="rotate(45 23 9)"/>
+        <ellipse cx="9" cy="23" rx="3" ry="5.5" fill="#f05590" transform="rotate(45 9 23)"/>
+        <ellipse cx="23" cy="23" rx="3" ry="5.5" fill="#f05590" transform="rotate(-45 23 23)"/>
+        <circle cx="16" cy="16" r="5" fill="#e0357a"/>
+        <circle cx="16" cy="16" r="3" fill="#f7f0e8"/>
+      </svg>
+    </div>
+    <p class="col-text">Fleur de Charme &nbsp;·&nbsp; Hecho con amor &nbsp;·&nbsp; 2024</p>
+  </div>
+
+</div>
+
+<script>
+/* ─── Custom cursor ─── */
+const crs = document.getElementById('crs');
+const crs2 = document.getElementById('crs2');
+let mx=window.innerWidth/2, my=window.innerHeight/2;
+let cx2=mx, cy2=my;
+
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  crs.style.left=mx+'px'; crs.style.top=my+'px';
+});
+
+(function moveCrs2(){
+  cx2 += (mx-cx2)*0.12;
+  cy2 += (my-cy2)*0.12;
+  crs2.style.left=cx2+'px'; crs2.style.top=cy2+'px';
+  requestAnimationFrame(moveCrs2);
+})();
+
+document.querySelectorAll('a,[class*="card"],[class*="btn"]').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    crs.style.width='18px'; crs.style.height='18px';
+    crs.style.background='rgba(224,53,122,1)';
+    crs2.style.width='52px'; crs2.style.height='52px';
+    crs2.style.opacity='.4';
+  });
+  el.addEventListener('mouseleave',()=>{
+    crs.style.width='10px'; crs.style.height='10px';
+    crs.style.background='rgba(224,53,122,.7)';
+    crs2.style.width='32px'; crs2.style.height='32px';
+    crs2.style.opacity='1';
+  });
+});
+
+/* ─── Floating petals ─── */
+const petalLayer = document.getElementById('petal-layer');
+const petalColors = [
+  'rgba(224,53,122,0.55)',
+  'rgba(255,130,180,0.5)',
+  'rgba(240,85,144,0.45)',
+  'rgba(255,180,210,0.4)',
+  'rgba(210,32,112,0.5)',
+  'rgba(255,200,225,0.35)',
+];
+const petalShapes = [
+  '50% 0 50% 0',   // diamond petal
+  '60% 0 40% 0',   // asymmetric
+  '0 50% 0 50%',   // horizontal petal
+  '50% 10% 50% 10%', // rounded
+];
+
+for(let i=0;i<18;i++){
+  const el=document.createElement('div');
+  el.className='bg-petal';
+  const size = 8 + Math.random()*18;
+  const color = petalColors[Math.floor(Math.random()*petalColors.length)];
+  const shape = petalShapes[Math.floor(Math.random()*petalShapes.length)];
+  const left = Math.random()*100;
+  const dur = 12 + Math.random()*20;
+  const delay = -Math.random()*dur;
+  el.style.cssText=`
+    width:${size}px;height:${size*1.4}px;
+    left:${left}%;
+    background:${color};
+    border-radius:${shape};
+    animation-duration:${dur}s;
+    animation-delay:${delay}s;
+    filter:blur(${Math.random()*1.5}px);
+  `;
+  petalLayer.appendChild(el);
+}
+
+/* ─── Catalog Data — 7 groups × 20 products ─── */
+const catalogGroups = [
+  {
+    id: 'track1', dots: 'dots1', catalog: 'Arreglos Florales',
+    items: [
+      { id:'A01', img:'foto1.jpg',  title:'Ramo Girasol Dorado',    desc:'Un hermoso ramo inspirado en la calidez de los girasoles.' },
+      { id:'A02', img:'foto2.jpg',  title:'Ramo flores Rojas y Rosa',       desc:'Composición en tonos rosa suave con rosas eternas de primera selección.' },
+      { id:'A03', img:'foto3.jpg',  title:'Ramo flores Rojas y Blancas',  desc:'Inspirado en jardines de primavera, con flores de diferentes especies.' },
+      { id:'A04', img:'foto4.jpg',  title:'Ramo Blanco y Azul Futbol',    desc:'Tonos marfil y crema que evocan pureza y sofisticación atemporal.' },
+      { id:'A05', img:'foto5.jpg',  title:'Ramo flores Roja con Girasol centrado',  desc:'Mezcla de tonos cálidos que recuerdan los atardeceres más hermosos.' },
+      { id:'A06', img:'foto6.jpg',  title:'Ramo Pasion Rosé',       desc:'Rosas rojas y fucsia en composición dramática y apasionada.' },
+      { id:'A07', img:'foto7.jpg',  title:'Ramo flores para cumpleaños',      desc:'Tonos suaves y serenos para ambientes tranquilos y elegantes.' },
+      { id:'A08', img:'foto8.jpg',  title:'Ramo Flores Amarillas con Blanco',  desc:'Rosa roja preservada, símbolo eterno del amor verdadero.' },
+      { id:'A09', img:'foto9.jpg',  title:'Ramo flores Selecta',      desc:'Selección especial de rosas preservadas de la más alta calidad.' },
+      { id:'A10', img:'foto10.jpg', title:'Ramo flores Rojas con Mariposas',   desc:'Colores que van del rosado al naranja, como el amanecer del día.' },
+      { id:'A11', img:'foto11.jpg', title:'Ramo flores Rosas con crema',      desc:'Contrastes oscuros con flores de colores intensos para un look dramático.' },
+      { id:'A12', img:'foto12.jpg', title:'Ramo flores Antiguo',      desc:'El arreglo favorito de las que aman el tono rosa envejecido. Suave y eterno.' },
+      { id:'A13', img:'foto13.jpg', title:'Ramo flores rosas de 3', desc:'Variedad de flores silvestres preservadas con un toque bohemio.' },
+      { id:'A14', img:'foto14.jpg', title:'Ramo Flores azules',     desc:'Detalles dorados entre flores preservadas para un resultado lujoso.' },
+      { id:'A15', img:'foto15.jpg', title:'Ramo flores amarillas con blanco',   desc:'Blancos y cremas que evocan la pureza y suavidad de una perla.' },
+      { id:'A16', img:'foto16.jpg', title:'Ramo flores azul Palido happy Aniversary', desc:'Rosas aterciopeladas con textura y profundidad de color inigualable.' },
+      { id:'A17', img:'foto17.jpg', title:'Ramo flores amarillas 3',      desc:'Pequeño, encantador y con mucho carácter. El regalo que sorprende.' },
+      { id:'A18', img:'foto18.jpg', title:'Ramo flores amarillas',    desc:'Una combinación misteriosa de flores eternas en tonos morados y vino.' },
+      { id:'A19', img:'foto19.jpg', title:'Ramo flores crema con azul',     desc:'Tonos neutros y elegantes para regalar sin equivocarse.' },
+      { id:'A20', img:'foto20.jpg', title:'ramo flores azul claro y oscuro',    desc:'El arreglo más completo de la colección. Tamaño maxi, impacto máximo.' },
+    ]
+  },
+  {
+    id: 'track2', dots: 'dots2', catalog: 'Ramos',
+    items: [
+      { id:'R01', img:'caja1.jpg',  title:'Caja de flores Rosas',        desc:'Ramo clásico de rosas preservadas, siempre a la moda.' },
+      { id:'R02', img:'caja2.jpg',  title:'Caja de flores rojas pasion mariposas',       desc:'Pequeño ramo para ocasiones formales y eventos especiales.' },
+      { id:'R03', img:'caja3.jpg',  title:'Caja de flores rojas con crema mariposa y corona',     desc:'Flores de temporada preservadas con colores vivos y alegres.' },
+      { id:'R04', img:'caja4.jpg',  title:'Caja de Girasoles con mariposa', desc:'Ramo esponjoso en tonos blancos y rosados, suave como una nube.' },
+      { id:'R05', img:'caja5.jpg',  title:'Caja de flores forma corazon rojas con blanco',       desc:'Mezcla premium de flores preservadas con colores contrastantes.' },
+      { id:'R06', img:'caja6.jpg',  title:'Caja de flores rojas con chocolates y Globo',      desc:'Tonos rojos y naranjas intensos para quien quiere hacer una declaración.' },
+      { id:'R07', img:'caja7.jpg',  title:'Caja de flores azules con globo, peluche stich and perfume Yara',        desc:'Colores pastel dulces y delicados para celebraciones especiales.' },
+      { id:'R08', img:'caja8.jpg',  title:'Caja de flores rojas cartera',     desc:'Ramo con pétalos brillantes y detalles metalizados de lujo.' },
+      { id:'R09', img:'caja9.jpg',  title:'Caja de flores cremas con mariposa y Moño',     desc:'Tonos cereza vibrantes que alegran cualquier espacio o momento.' },
+      { id:'R10', img:'caja10.jpg', title:'Caja de flores rojas con blanco forma de corazon',   desc:'Estilo bohemio con flores silvestres y texturas variadas.' },
+      { id:'R11', img:'caja11.jpg', title:'Caja de flores Rojas',     desc:'Ramo de novia completamente personalizado. Tu día perfecto merece esto.' },
+      { id:'R12', img:'caja12.jpg', title:'Caja de flores azules',   desc:'El ramo más exclusivo de la línea, con flores de selección premium.' },
+      { id:'R13', img:'caja13.jpg', title:'Caja de flores azules oscuro',   desc:'Flores silvestres preservadas con un toque de naturaleza auténtica.' },
+      { id:'R14', img:'caja14.jpg', title:'Caja de flores azules y bombones forma de corazon',     desc:'Tonos nácar y marfil con detalles perlados de alta joyería floral.' },
+      { id:'R15', img:'caja15.jpg', title:'Caja de flores rojas rodeadas de bombones',    desc:'El rosa más sofisticado en un ramo que enamora desde el primer vistazo.' },
+      { id:'R16', img:'caja16.jpg', title:'Caja de flores rojas y Bombones',      desc:'Un jardín completo en tus manos. Variedad, color y elegancia.' },
+      { id:'R17', img:'caja17.jpg', title:'Caja de flores rojas orilla decoracion blancas',   desc:'Estética vintage con flores que parecen sacadas de otra época.' },
+      { id:'R18', img:'caja18.jpg', title:'Caja de flores rojas con letras y corazon',      desc:'Tonos coral cálidos que combinan belleza tropical y elegancia.' },
+      { id:'R19', img:'caja19.jpg', title:'Caja de flores rosas caja estilo cartera',     desc:'Flores que duran para siempre, como los mejores recuerdos.' },
+      { id:'R20', img:'caja20.jpg', title:'caja de flores rosas con rojo vino y mariposas',    desc:'El ramo más grande y espectacular de toda la colección.' },
+    ]
+  },
+  {
+    id: 'track3', dots: 'dots3', catalog: 'Cajas',
+    items: [
+      { id:'C01', img:'personalizados1.jpg',  title:'Caja personalizada roja',   desc:'Caja decorativa con rosas blancas preservadas. Elegancia atemporal.' },
+      { id:'C02', img:'personalizados2.jpg',  title:'caja personalizada rosa',            desc:'Caja rosa suave llena de flores eternas en tonos delicados.' },
+      { id:'C03', img:'personalizados3.jpg',  title:'Caja personalizada con chocolates',   desc:'Flores de primavera preservadas en una caja decorativa irresistible.' },
+      { id:'C04', img:'personalizados4.jpg',  title:'Caja personalizada rosa con chocolates y mas',        desc:'Tonos marfil y crema en una presentación de caja lujosa y atemporal.' },
+      { id:'C05', img:'personalizados5.jpg',  title:'Caja personalizada azul globo',    desc:'Colores vibrantes que evocan el paraíso floral más exuberante.' },
+      { id:'C06', img:'personalizados6.jpg',  title:'Flores con chocolates',         desc:'Rosas rojas y fucsia en caja de regalo dramática y apasionada.' },
+      { id:'C07', img:'personalizados7.jpg',  title:'Caja en rojo con chocolates y pringles',   desc:'La caja de los sueños: flores eternas en presentación de lujo.' },
+      { id:'C08', img:'personalizados8.jpg',  title:'Caja para hombre con T-shirt',        desc:'Caja en forma de corazón con flores preservadas. El regalo perfecto.' },
+      { id:'C09', img:'personalizados9.jpg',  title:'Caja Roja Exclusiva',        desc:'La caja más exclusiva, con rosas preservadas de selección especial.' },
+      { id:'C10', img:'personalizados10.jpg', title:'Personalizado de cuadro ',        desc:'Tonos del amanecer en una caja que despierta emociones únicas.' },
+      { id:'C11', img:'personalizados11.jpg', title:'personalizado de Embases',       desc:'Diseñada especialmente para bodas y momentos de celebración nupcial.' },
+      { id:'C12', img:'personalizados12.jpg', title:'personalizado rosa accesorios',       desc:'Caja grande con gran variedad de flores eternas. Para decir mucho.' },
+      { id:'C13', img:'personalizados13.jpg', title:'Termos personalizados',           desc:'La combinación perfecta de flores rojas y rosas para declarar amor.' },
+      { id:'C14', img:'personalizados14.jpg', title:'Caja ',        desc:'Detalles dorados sobre flores preservadas para un regalo de alto impacto.' },
+      { id:'C15', img:'personalizados15.jpg', title:'Cuadro personalizado para parejas',       desc:'Blancos y cremas nacarados en caja elegante de edición especial.' },
+      { id:'C16', img:'personalizados16.jpg', title:'Cuadro personalizado para parejas2',        desc:'Caja especial diseñada para regalos de amor en todas sus formas.' },
+      { id:'C17', img:'personalizados17.jpg', title:'Cuadro Para hombres con Nombre y Anime',          desc:'Formato pequeño con gran contenido emocional. Perfecta como detalle.' },
+      { id:'C18', img:'personalizados18.jpg', title:'Cuadro para parejas3',         desc:'Flores moradas y vino en caja de edición limitada con esencia mística.' },
+      { id:'C19', img:'personalizados19.jpg', title:'Cuadro para parejas4',   desc:'Porque hay momentos que merecen un regalo que dure para siempre.' },
+      { id:'C20', img:'personalizados20.jpg', title:'Caja rosa chocolates y globos',      desc:'Edición especial limitada. Lo más exclusivo de nuestra colección.' },
+    ]
+  },
+  {
+    id: 'track4', dots: 'dots4', catalog: 'Bandejas',
+    items: [
+      { id:'B01', img:'bandeja1.jpg',  title:'Bandeja Rosa y Marfil',      desc:'Bandeja decorativa con rosas preservadas en tonos rosé y marfil.' },
+      { id:'B02', img:'bandeja2.jpg',  title:'Bandeja Flores Selectas',    desc:'Diseño elegante con flores de primera calidad y detalles de lujo.' },
+      { id:'B03', img:'bandeja3.jpg',  title:'Bandeja Flores Silvestres',  desc:'Variedad de flores silvestres sobre bandeja decorativa artesanal.' },
+      { id:'B04', img:'bandeja4.jpg',  title:'Bandeja Crema Refinada',     desc:'Tonos neutros y marfil para una presentación refinada y atemporal.' },
+      { id:'B05', img:'bandeja5.jpg',  title:'Bandeja Colores Tropicales', desc:'Explosión de colores tropicales en una bandeja espectacular.' },
+      { id:'B06', img:'bandeja6.jpg',  title:'Bandeja Flores de Lujo',     desc:'Bandeja decorativa exclusiva, perfecta como regalo de lujo.' },
+      { id:'B07', img:'bandeja7.jpg',  title:'Bandeja Pastel Encantadora', desc:'Flores pastel sobre bandeja, dulce y encantadora para cualquier ocasión.' },
+      { id:'B08', img:'bandeja8.jpg',  title:'Bandeja Roja de Amor',       desc:'Corazones florales y rosas rojas en bandeja de declaración total.' },
+      { id:'B09', img:'bandeja9.jpg',  title:'Bandeja Rosa Exclusiva',     desc:'La bandeja más exclusiva con rosas de selección especial premium.' },
+      { id:'B10', img:'bandeja10.jpg', title:'Bandeja Dorada Elegante',    desc:'Bandeja decorativa con acentos dorados. Sofisticación pura.' },
+      { id:'B11', img:'bandeja11.jpg', title:'Bandeja Blanca de Bodas',    desc:'Para bodas y eventos nupciales que merecen la más bella decoración.' },
+      { id:'B12', img:'bandeja12.jpg', title:'Bandeja Grande de Impacto',  desc:'Tamaño maxi para impactar en el momento más especial.' },
+    ]
+  },
+];
+
+function waLink(title, img, desc, code, catalog){
+  const phone = '18094245802';
+  const pageUrl = window.location.href.split('?')[0];
+  const imageUrl = img ? `${pageUrl}${img}` : '';
+  const msg =
+    `Hola! Me interesa reservar el siguiente producto de Fleur de Charme:\n\n` +
+    `Nombre: ${title}\n` +
+    `Codigo: ${code}\n` +
+    `Catalogo: ${catalog}\n` +
+    `${desc ? `Descripcion: ${desc}\n` : ''}` +
+    `\nPueden darme mas informacion sobre precio y disponibilidad? Gracias!`;
+  return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+}
+
+const WA_SVG = `<svg viewBox="0 0 24 24" fill="#4ade80"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.859L.057 23.57a.5.5 0 0 0 .614.614l5.684-1.476A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.98 0-3.842-.582-5.408-1.585l-.374-.232-3.882 1.009 1.01-3.867-.243-.385A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>`;
+
+function buildGroupCards(trackId, dotsId, items, catalog){
+  const track = document.getElementById(trackId);
+  const dotsWrap = document.getElementById(dotsId);
+  if(!track || !dotsWrap) return;
+
+  items.forEach((item, idx)=>{
+    const card = document.createElement('div');
+    card.className = 'cat-card';
+
+    // Badge logic: first item = "Más Vendido", second = "Nuevo"
+    let badgeHtml = '';
+    if(idx === 0) badgeHtml = `<span class="cat-badge top">★ Top</span>`;
+    else if(idx === 1) badgeHtml = `<span class="cat-badge nuevo">Nuevo</span>`;
+
+    card.innerHTML = `
+      <div class="cat-img-wrap">
+        <div class="cat-img" style="background-image:url('${item.img}')"></div>
+        <span class="cat-num">${String(item.id).padStart(2,'0')}</span>
+        ${badgeHtml}
+        <div class="cat-zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+        </div>
+      </div>
+      <div class="cat-body">
+        <span class="cat-tag">Fleur de Charme</span>
+        <div class="cat-title">${item.title}</div>
+        <div class="cat-desc">${item.desc}</div>
+        <a class="cat-reserve" href="${waLink(item.title, item.img, item.desc, item.id, catalog)}" target="_blank">
+          ${WA_SVG} Reservar
+        </a>
+      </div>
+    `;
+    card.querySelector('.cat-img-wrap').addEventListener('click', ()=> openCatLight(item, catalog));
+    track.appendChild(card);
+
+    const dot = document.createElement('div');
+    dot.className = 'cat-dot' + (idx===0?' active':'');
+    dot.addEventListener('click', ()=>{
+      const cards = track.querySelectorAll('.cat-card');
+      if(cards[idx]) cards[idx].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});
+    });
+    dotsWrap.appendChild(dot);
+  });
+
+  track.addEventListener('scroll', ()=>{
+    const cards = track.querySelectorAll('.cat-card');
+    const dots = dotsWrap.querySelectorAll('.cat-dot');
+    let closest=0, minDist=Infinity;
+    cards.forEach((c,i)=>{
+      const dist=Math.abs(c.getBoundingClientRect().left - track.getBoundingClientRect().left);
+      if(dist<minDist){minDist=dist;closest=i;}
+    });
+    dots.forEach((d,i)=>d.classList.toggle('active',i===closest));
+  },{passive:true});
+}
+
+catalogGroups.forEach(g => buildGroupCards(g.id, g.dots, g.items, g.catalog));
+
+/* ─── Catalog Lightbox ─── */
+function openCatLight(item, catalog){
+  document.getElementById('lbImg').src = item.img;
+  document.getElementById('lbTitle').textContent = item.title;
+  document.getElementById('lbDesc').textContent = item.desc;
+  document.getElementById('lbReserve').href = waLink(item.title, item.img, item.desc, item.id, catalog);
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLight(){
+  document.getElementById('lightbox').classList.remove('open');
+}
+document.getElementById('lightbox').addEventListener('click', function(e){
+  if(e.target===this) closeLight();
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLight(); });
+
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:.15});
+
+document.querySelectorAll('.wa-grand,.diptych,.trilogy,.sec-head,.colophon,.cat-carousel-wrap').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(24px)';
+  el.style.transition='opacity .8s ease, transform .8s cubic-bezier(.16,1,.3,1)';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
