@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Reseñas· Fleur de Charme</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Tenor+Sans&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --noir: #080508; --noir-mid: #170d15;
+  --noir-soft:  #0f0a0e;
+  --noir-light: #1e1019;
+  --ivory:      #faf3ec;
+  --gold: #c4993e; --gold-mid: #d4ab52; --gold-light: #e8c878;
+  --text-primary: #faf3ec; --text-secondary: rgba(245,230,208,0.72);
+  --text-dim: rgba(245,230,208,0.42);
+  --border-gold: rgba(196, 153, 62, 0.28);
+  --bg-main: radial-gradient(ellipse 100% 70% at 20% 0%, rgba(140,26,74,0.28) 0%, transparent 60%),
+             radial-gradient(ellipse 80% 60% at 80% 90%, rgba(100,15,55,0.22) 0%, transparent 55%),
+             radial-gradient(ellipse 60% 40% at 50% 50%, rgba(30,8,25,0.4) 0%, transparent 80%),
+             linear-gradient(160deg, #0c0610 0%, #130a12 30%, #0f0810 65%, #080508 100%);
+}
+
+/* Texturas atmosféricas unificadas con index.html */
+.grain {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .022; mix-blend-mode: overlay;
+}
+.bokeh-field { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(70px);
+  animation: orbDrift ease-in-out infinite alternate;
+}
+@keyframes orbDrift {
+  from { transform: translate(0,0) scale(1); }
+  to { transform: translate(var(--tx), var(--ty)) scale(var(--ts)); }
+}
+.petal-field { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.petal {
+  position: absolute; opacity: 0;
+  animation: petalRise linear infinite;
+}
+@keyframes petalRise {
+  0%   { opacity: 0; transform: translateY(105vh) rotate(0deg) scale(0.7); }
+  8%   { opacity: 0.6; }
+  90%  { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-15vh) rotate(540deg) scale(1.2); }
+}
+
+body { 
+  background: var(--bg-main); 
+  background-attachment: fixed;
+  color: var(--text-primary); 
+  font-family: 'Cormorant Garamond', serif; 
+  min-height: 100vh; 
+  padding: 40px 20px;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+body.fade-out {
+  opacity: 0;
+}
+.container { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+.back-link { 
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-bottom: 40px; color: var(--gold-light); 
+  text-decoration: none; font-family: 'Tenor Sans', sans-serif;  cursor: pointer;
+  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; 
+}
+.header-title {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 2.2rem; color: var(--gold-light); text-align: center;
+  margin-bottom: 10px;
+}
+.header-sub {
+  font-family: 'EB Garamond', serif; font-size: 1rem;
+  color: var(--text-secondary); text-align: center; margin-bottom: 40px;
+  opacity: 0.8;
+}
+.reviews-grid { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  grid-auto-rows: 1fr; /* Hace que todas las filas tengan la misma altura */
+  gap: 20px; 
+}
+
+@media (max-width: 900px) {
+  .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .reviews-grid { grid-template-columns: 1fr; }
+  .reviews-grid { grid-auto-rows: auto; } /* En móvil cada tarjeta ocupa lo que necesita */
+  .container { max-width: 430px; }
+}
+.review-card {
+  background: var(--noir-mid);
+  border: 1px solid var(--border-gold);
+  border-radius: 24px; padding: 30px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column; /* Organiza el contenido en columna */
+  animation: fadeUp 0.8s ease forwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.review-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--gold-mid);
+  background: var(--noir-light);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 15px rgba(196, 153, 62, 0.15);
+}
+.rev-name {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1.2rem; color: var(--gold-light); display: block;
+}
+
+/* Estilos del Modal y Formulario */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(12px); }
+.modal-content { background: var(--noir-mid); border: 1px solid var(--border-gold); width: 100%; max-width: 420px; border-radius: 24px; padding: 35px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 30px 100px rgba(0,0,0,0.8); }
+.lb-close { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; }
+
+.review-form { margin-top: 25px; display: flex; flex-direction: column; gap: 12px; }
+.review-form input, .review-form textarea { background: rgba(255,255,255,0.03); border: 1px solid var(--border-gold); color: var(--text-primary); padding: 14px; border-radius: 12px; font-family: 'EB Garamond', serif; font-size: 0.95rem; outline: none; }
+.btn-submit { background: var(--gold); border: none; color: var(--noir); padding: 14px; border-radius: 12px; font-family: 'Tenor Sans', sans-serif; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+
+.whatsapp-prompt { display: none; margin-top: 20px; text-align: center; animation: fadeIn 0.5s ease; }
+.whatsapp-prompt p { font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--text-secondary); margin-bottom: 15px; }
+.whatsapp-prompt input { width: 100%; margin-bottom: 12px; }
+.btn-whatsapp { background: #25d366; color: white; border: none; padding: 12px; border-radius: 12px; font-family: 'Tenor Sans', sans-serif; font-weight: 700; cursor: pointer; text-transform: uppercase; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s; }
+.btn-whatsapp:hover { transform: scale(1.02); }
+
+.star-rating-input {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.star-rating-input input { display: none; }
+.star-rating-input label { font-size: 2rem; color: var(--text-dim); cursor: pointer; padding: 0 4px; transition: color 0.2s; }
+.star-rating-input input:checked ~ label,
+.star-rating-input label:hover,
+.star-rating-input label:hover ~ label { color: #fbbf24; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.success-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--noir-mid); border: 1px solid var(--gold); color: var(--gold-light); padding: 12px 25px; border-radius: 50px; z-index: 3000; font-family: 'Tenor Sans', sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 40px rgba(0,0,0,0.6); pointer-events: none; }
+.success-toast.show { transform: translateX(-50%) translateY(40px); }
+
+/* Sello de verificación */
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #4ade80;
+  font-size: 0.65rem;
+  font-family: 'Tenor Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.rev-stars { color: #fbbf24; font-size: 0.9rem; margin: 8px 0 12px; letter-spacing: 2px; }
+.rev-text {
+  font-family: 'EB Garamond', serif; font-size: 1.05rem;
+  color: var(--text-secondary); line-height: 1.6; font-style: italic;
+  flex-grow: 1; /* El texto crece para ocupar el espacio sobrante y empujar la fecha abajo */
+}
+.rev-date {
+  margin-top: 15px; font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.55rem; color: var(--text-dim); text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.empty-state { text-align: center; padding: 60px 0; color: var(--text-dim); font-style: italic; }
+</style>
+</head>
+<body>
+<div class="bokeh-field">
+  <div class="orb" style="width:520px;height:520px;top:-8%;left:-18%;background:rgba(140,26,74,0.16);--tx:25px;--ty:35px;--ts:1.08;animation-duration:10s"></div>
+  <div class="orb" style="width:300px;height:300px;bottom:-4%;right:4%;background:rgba(196,153,62,0.06);--tx:-20px;--ty:-18px;--ts:1.06;animation-duration:11s"></div>
+</div>
+<div class="petal-field" id="petal-field"></div>
+<div class="grain"></div>
+
+<div id="successToast" class="success-toast">¡Gracias por tu historia Fleur!</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Volver al inicio
+  </a>
+
+  <h1 class="header-title">Reseñas Reales</h1>
+  <p class="header-sub">Opiniones auténticas y verificadas de quienes han confiado en nuestra magia.</p>
+
+  <!-- Botón para ir a escribir -->
+  <div style="text-align: center; margin-bottom: 30px;">
+    <button onclick="openReviews()" class="back-link" style="margin-bottom:0; color:var(--gold-mid); border: 1px solid var(--border-gold); padding: 10px 25px; border-radius: 50px; background: rgba(196,153,62,0.05); cursor:pointer;">+ Escribir mi historia</button>
+  </div>
+
+  <div id="reviewsArchive" class="reviews-grid">
+    <div class="empty-state">Cargando historias mágicas...</div>
+  </div>
+</div>
+
+<!-- Modal del Formulario -->
+<div class="modal-overlay" id="reviewModal">
+  <div class="modal-content">
+    <div class="lb-close" onclick="closeReviews()">✕</div>
+    <h2 style="font-family:'Playfair Display', serif; color:var(--gold-light); font-size:1.4rem; margin-bottom:20px; font-style:italic;">Tu Historia Fleur</h2>
+    <form class="review-form" id="reviewForm">
+      <div class="star-rating-input">
+        <input type="radio" id="s5" name="rating" value="5" checked><label for="s5">★</label>
+        <input type="radio" id="s4" name="rating" value="4"><label for="s4">★</label>
+        <input type="radio" id="s3" name="rating" value="3"><label for="s3">★</label>
+        <input type="radio" id="s2" name="rating" value="2"><label for="s2">★</label>
+        <input type="radio" id="s1" name="rating" value="1"><label for="s1">★</label>
+      </div>
+      <input type="text" id="revName" placeholder="Tu nombre" required>
+      <textarea id="revText" placeholder="Cuéntanos tu experiencia..." rows="3" required></textarea>
+      <button type="submit" class="btn-submit" id="submitBtn">Enviar Reseña</button>
+    </form>
+    
+    <div id="whatsappPrompt" class="whatsapp-prompt">
+      <p>¡Gracias! Deseas enviar también esta reseña por WhatsApp a la dueña para una atención personalizada</p>
+      <input type="tel" id="userPhone" placeholder="Tu número de teléfono (con código de país)" class="review-form">
+      <button onclick="sendToWhatsApp()" class="btn-whatsapp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.859L.057 23.57a.5.5 0 0 0 .614.614l5.684-1.476A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.98 0-3.842-.582-5.408-1.585l-.374-.232-3.882 1.009 1.01-3.867-.243-.385A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Enviar por WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SB_URL = 'https://oluwxadwjxpzjrvxiiyt.supabase.co';
+const SB_KEY = 'sb_publishable_a_e02JrZ5lHci-ebZC_Cow_1vUbhdFX';
+
+/* ─── Pétalos flotantes (Unificados) ─── */
+const petalField = document.getElementById('petal-field');
+for(let i = 0; i < 12; i++){
+  const el = document.createElement('div');
+  el.className = 'petal';
+  const size = 7 + Math.random() * 16;
+  const left = Math.random() * 100;
+  const dur = 14 + Math.random() * 22;
+  const delay = -Math.random() * dur;
+  el.style.cssText = `
+    width:${size}px; height:${size*1.45}px; left:${left}%;
+    background:rgba(215,60,130,0.3); border-radius:50% 0 50% 0;
+    animation-duration:${dur}s; animation-delay:${delay}s;
+    filter:blur(${Math.random()*1.2}px);
+  `;
+  petalField.appendChild(el);
+}
+
+const supabaseClient = window.supabase.createClient(SB_URL, SB_KEY);
+
+async function fetchAllReviews() {
+  const { data, error } = await supabaseClient
+    .from('reviews_bio')
+    .select('*')
+    .order('id', { ascending: false });
+
+  const container = document.getElementById('reviewsArchive');
+  
+  if (error) {
+    console.error("Error cargando reseñas:", error);
+    container.innerHTML = '<p class="empty-state">No se pudieron cargar las reseñas. Intenta de nuevo más tarde.</p>';
+    return;
+  }
+
+  if (data && data.length > 0) {
+    container.innerHTML = data.map((r, index) => {
+      const ratingVal = parseInt(r.rating) || 5;
+      const stars = '★'.repeat(ratingVal) + '☆'.repeat(Math.max(0, 5 - ratingVal));
+      // Formatear fecha (con validación por si no existe la columna)
+      const date = r.created_at ? new Date(r.created_at).toLocaleDateString('es-ES', { 
+        year: 'numeric', month: 'long', day: 'numeric' 
+      }) : 'Reciente';
+
+      return `
+        <div class="review-card scroll-reveal" style="opacity:0; transform:translateY(20px); animation-delay: ${index * 0.1}s">
+          <div class="verified-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            Cliente Verificado
+          </div>
+          <span class="rev-name">${r.name}</span>
+          <div class="rev-stars" style="color:#fbbf24; font-size:0.9rem; margin: 8px 0 12px; letter-spacing: 2px;">${stars}</div>
+          <p class="rev-text">"${r.comment}"</p>
+          <div class="rev-date">${date}</div>
+        </div>
+      `;
+    }).join('');
+    initScrollReveal();
+  } else {
+    container.innerHTML = `
+      <div class="empty-state">
+        Aún no hay historias escritas.
+      </div>
+    `;
+  }
+}
+
+function initScrollReveal() {
+  const revealObs = new IntersectionObserver(entries => {
+    let delay = 0;
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        setTimeout(() => {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }, delay);
+        delay += 100;
+      }
+    });
+  }, {threshold: 0.1});
+  document.querySelectorAll('.scroll-reveal').forEach(el => {
+    el.style.transition = 'opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    revealObs.observe(el);
+  });
+}
+
+document.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', e => {
+    if (link.hostname === window.location.hostname && !link.hash && link.target !== '_blank') {
+      e.preventDefault();
+      document.body.classList.add('fade-out');
+      setTimeout(() => { window.location = link.href; }, 500);
+    }
+  });
+});
+
+function openReviews() { 
+  document.getElementById('reviewModal').style.display = 'flex';
+  document.getElementById('reviewForm').style.display = 'flex';
+  document.getElementById('whatsappPrompt').style.display = 'none';
+}
+function closeReviews() { 
+  document.getElementById('reviewModal').style.display = 'none'; 
+  document.querySelector('.lb-close').style.display = 'flex';
+}
+
+let lastReviewData = null;
+
+document.getElementById('reviewForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('revName').value;
+  const comment = document.getElementById('revText').value;
+  const rating = parseInt(document.querySelector('input[name="rating"]:checked').value) || 5;
+
+  lastReviewData = { name, comment, rating };
+
+  // Ocultar botón de cerrar para forzar el paso de WhatsApp
+  document.querySelector('.lb-close').style.display = 'none';
+
+  // Cambiar a formulario de WhatsApp
+  document.getElementById('reviewForm').style.display = 'none';
+  document.getElementById('whatsappPrompt').style.display = 'block';
+});
+
+async function sendToWhatsApp() {
+  const phoneInput = document.getElementById('userPhone');
+  const userPhone = phoneInput.value.trim();
+  const btnWa = document.querySelector('.btn-whatsapp');
+  
+  if (userPhone === "") {
+    alert("Por favor, ingresa tu número de teléfono para contactarte.");
+    return;
+  }
+
+  btnWa.disabled = true;
+  const originalText = btnWa.innerHTML;
+  btnWa.innerText = 'Procesando...';
+
+  try {
+    // 1. Obtener fecha y hora exacta de RD
+    const now = new Date();
+    const rdDate = now.toLocaleDateString('es-DO', { timeZone: 'America/Santo_Domingo' });
+    const rdTime = now.toLocaleTimeString('es-DO', { timeZone: 'America/Santo_Domingo', hour12: true });
+    const fullTimestamp = `${rdDate} a las ${rdTime}`;
+
+    const starsText = lastReviewData.rating + " de 5";
+    const message = `Nueva Reseña Fleur\n\nFecha: ${fullTimestamp}\nCliente: ${lastReviewData.name}\nTeléfono: ${userPhone}\nCalificación: ${starsText}\nMensaje: ${lastReviewData.comment}`;
+    
+    const waUrl = `https://wa.me/18094245802?text=${encodeURIComponent(message)}`;
+    
+    // 2. Intentar abrir WhatsApp de inmediato
+    window.open(waUrl, '_blank');
+
+    // Guardar en Supabase SOLO cuando se pulsa el botón de WhatsApp
+    const { error } = await supabaseClient.from('reviews_bio').insert([{ 
+      name: lastReviewData.name, 
+      comment: lastReviewData.comment, 
+      rating: lastReviewData.rating 
+    }]);
+    if (error) throw error;
+
+    // Mostrar mensaje de éxito con un pequeño delay para que sea después de abrir la pestaña
+    setTimeout(() => {
+      const toast = document.getElementById('successToast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }, 800);
+
+    document.getElementById('revName').value = '';
+    document.getElementById('revText').value = '';
+    document.getElementById('userPhone').value = '';
+    document.getElementById('s5').checked = true;
+
+    await fetchAllReviews();
+    closeReviews();
+  } catch (err) {
+    alert("Hubo un error al procesar tu reseña: " + err.message);
+  } finally {
+    btnWa.disabled = false;
+    btnWa.innerHTML = originalText;
+  }
+}
+
+// Cargar al iniciar
+window.addEventListener('DOMContentLoaded', fetchAllReviews);
+</script>
+</body>
+</html>
