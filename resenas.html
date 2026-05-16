@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html { background-color: #080508; scroll-behavior: smooth; height: 100%; }
+html { background-color: #080508; scroll-behavior: auto; height: 100%; overflow-x: hidden; }
 :root{
   --noir: #080508; --noir-mid: #170d15;
   --noir-soft:  #0f0a0e;
@@ -57,11 +57,12 @@ body {
   background: var(--bg-main); 
   background-attachment: fixed;
   color: var(--text-primary); 
+  width: 100%; overflow-x: hidden;
   font-family: 'Cormorant Garamond', serif; 
   min-height: 100vh; 
   padding: 40px 20px;
   opacity: 1;
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.3s ease-out;
 }
 body.fade-out {
   opacity: 0;
@@ -103,14 +104,15 @@ body.fade-out {
   border: 1px solid var(--border-gold);
   border-radius: 24px; padding: 30px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
   display: flex;
   flex-direction: column; /* Organiza el contenido en columna */
-  animation: fadeUp 0.8s ease forwards;
+  animation: fadeUp 0.4s ease-out forwards;
+  will-change: transform, opacity;
 }
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translate3d(0, 20px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 .review-card:hover {
   transform: translateY(-8px);
@@ -318,13 +320,13 @@ function initScrollReveal() {
         setTimeout(() => {
           e.target.style.opacity = '1';
           e.target.style.transform = 'translateY(0)';
-        }, delay);
-        delay += 100;
+        }, delay / 2);
+        delay += 50;
       }
     });
   }, {threshold: 0.1});
   document.querySelectorAll('.scroll-reveal').forEach(el => {
-    el.style.transition = 'opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    el.style.transition = 'opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
     revealObs.observe(el);
   });
 }
@@ -334,7 +336,7 @@ document.querySelectorAll('a').forEach(link => {
     if (link.hostname === window.location.hostname && !link.hash && link.target !== '_blank') {
       e.preventDefault();
       document.body.classList.add('fade-out');
-      setTimeout(() => { window.location = link.href; }, 500);
+      setTimeout(() => { window.location = link.href; }, 300);
     }
   });
 });
@@ -353,7 +355,7 @@ let lastReviewData = null;
 
 document.getElementById('reviewForm').addEventListener('submit', (e) => {
   e.preventDefault();
-  const name = document.getElementById('revName').value;
+  const name = document.getElementById('revName').value.trim();
   const comment = document.getElementById('revText').value;
   const rating = parseInt(document.querySelector('input[name="rating"]:checked').value) || 5;
 

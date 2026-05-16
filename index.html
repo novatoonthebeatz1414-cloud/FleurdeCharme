@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<link rel="icon" type="image/jpeg" href="logo1.jpg">
 <title>Fleur de Charme · Flores Eternas</title>
 <meta name="description" content="Flores eternas y preservadas artesanales. Arreglos, cajas, personalizados y bandejas de lujo. Pedidos por WhatsApp · Moca, República Dominicana."/>
 <meta property="og:title" content="Fleur de Charme · Flores Eternas"/>
@@ -70,7 +71,8 @@
 
 /* --- NUEVAS TRANSICIONES Y HOVERS --- */
 .cat-card, .soc-btn, .loc-card, .wa-grand, .stats-bar {
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease-out, border-color 0.3s ease;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease;
+  will-change: transform, opacity;
 }
 
 .cat-img {
@@ -85,7 +87,7 @@
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
-html { scroll-behavior: smooth; height: 100%; background: #080508; }
+html { scroll-behavior: auto; height: 100%; background: #080508; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 body {
   background: var(--bg-main);
   background-color: #080508;
@@ -93,7 +95,7 @@ body {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
   color: var(--text-primary);
   min-height: 100vh;
-  overflow-x: hidden;
+  width: 100%; overflow-x: hidden;
   cursor: default;
   opacity: 1;
   transition: opacity 0.5s ease-out;
@@ -126,12 +128,14 @@ body.fade-out {
 .bokeh-field { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .orb {
   position: absolute; border-radius: 50%;
-  filter: blur(70px);
+  filter: blur(40px);
   animation: orbDrift ease-in-out infinite alternate;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 @keyframes orbDrift {
-  from { transform: translate(0,0) scale(1); }
-  to { transform: translate(var(--tx), var(--ty)) scale(var(--ts)); }
+  from { transform: translate3d(0,0,0) scale(1); }
+  to { transform: translate3d(var(--tx), var(--ty), 0) scale(var(--ts)); }
 }
 
 /* Rose petals */
@@ -140,12 +144,13 @@ body.fade-out {
   position: absolute;
   opacity: 0;
   animation: petalRise linear infinite;
+  will-change: transform, opacity;
 }
 @keyframes petalRise {
-  0%   { opacity: 0; transform: translateY(105vh) rotate(0deg) scale(0.7); }
+  0%   { opacity: 0; transform: translate3d(0, 105vh, 0) rotate(0deg) scale(0.7); }
   8%   { opacity: 0.6; }
   90%  { opacity: 0.3; }
-  100% { opacity: 0; transform: translateY(-15vh) rotate(540deg) scale(1.2); }
+  100% { opacity: 0; transform: translate3d(0, -15vh, 0) rotate(540deg) scale(1.2); }
 }
 
 /* ══════════════════════════════════════════
@@ -153,9 +158,51 @@ body.fade-out {
 ══════════════════════════════════════════ */
 .page {
   position: relative; z-index: 2;
-  max-width: 430px; margin: 0 auto;
+  width: 100%; max-width: 100%; margin: 0 auto;
   display: flex; flex-direction: column; align-items: center;
   padding-bottom: 100px;
+}
+
+/* --- DESKTOP WEB VIEW OPTIMIZATIONS --- */
+@media (min-width: 1024px) {
+  .page {
+    max-width: 1100px;
+  }
+
+  .masthead {
+    width: 900px !important;
+    border-radius: 0 0 40px 40px;
+    margin-top: 20px;
+    border-left: 1px solid var(--border-gold);
+    border-right: 1px solid var(--border-gold);
+    border-top: 1px solid var(--border-gold);
+  }
+
+  .stats-bar {
+    width: 800px !important;
+    border-top: 1px solid var(--border-gold) !important;
+    border-radius: 20px !important;
+    margin-top: -20px !important;
+    z-index: 10;
+  }
+
+  .wa-grand {
+    width: 700px !important;
+  }
+
+  .social-list {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  .loc-wrap {
+    width: 800px !important;
+  }
+
+  .cat-group-header {
+    border-radius: 16px !important;
+  }
 }
 
 /* ══════════════════════════════════════════
@@ -1008,16 +1055,16 @@ body.fade-out {
   from { opacity: 0; } to { opacity: 1; }
 }
 
-.sec-header  { animation: riseUp 0.9s cubic-bezier(.16,1,.3,1) both; }
-.sec-header.s1 { animation-delay: 0.28s; }
-.sec-header.s2 { animation-delay: 0.36s; }
-.sec-header.s3 { animation-delay: 0.44s; }
-.sec-header.s4 { animation-delay: 0.52s; }
-.sec-header.s5 { animation-delay: 0.58s; }
-.wa-grand    { animation: riseUp 0.9s 0.32s cubic-bezier(.16,1,.3,1) both; }
-.cat-carousel-wrap { animation: riseUp 0.9s 0.40s cubic-bezier(.16,1,.3,1) both; }
-.social-list { animation: riseUp 0.9s 0.48s cubic-bezier(.16,1,.3,1) both; }
-.loc-wrap    { animation: riseUp 0.9s 0.50s cubic-bezier(.16,1,.3,1) both; }
+.sec-header  { animation: riseUp 0.3s cubic-bezier(.16,1,.3,1) both; }
+.sec-header.s1 { animation-delay: 0.05s; }
+.sec-header.s2 { animation-delay: 0.1s; }
+.sec-header.s3 { animation-delay: 0.15s; }
+.sec-header.s4 { animation-delay: 0.2s; }
+.sec-header.s5 { animation-delay: 0.25s; }
+.wa-grand    { animation: riseUp 0.3s 0.08s cubic-bezier(.16,1,.3,1) both; }
+.cat-carousel-wrap { animation: riseUp 0.3s 0.15s cubic-bezier(.16,1,.3,1) both; }
+.social-list { animation: riseUp 0.3s 0.2s cubic-bezier(.16,1,.3,1) both; }
+.loc-wrap    { animation: riseUp 0.3s 0.25s cubic-bezier(.16,1,.3,1) both; }
 
 
 
@@ -1046,7 +1093,7 @@ body.fade-out {
 .cat-nav-btn:hover, .cat-nav-btn.active {
   background: rgba(196,153,62,0.14);
   border-color: rgba(196,153,62,0.50);
-  color: var(--gold-light);
+  color: var(--gold-light); transform: scale(1.05);
   box-shadow: 0 0 16px rgba(196,153,62,0.08);
 }
 
@@ -1445,12 +1492,8 @@ body.fade-out {
 <script>
 /* ─── Floating petals ─── */
 const petalField = document.getElementById('petal-field');
-const petalColors = [
-  'rgba(200,50,110,0.45)', 'rgba(232,120,154,0.40)',
-  'rgba(215,60,130,0.38)', 'rgba(248,170,195,0.32)',
-  'rgba(180,30,90,0.42)',  'rgba(245,200,218,0.28)',
-];
-for(let i = 0; i < 16; i++){
+const petalColors = ['rgba(215,60,130,0.3)'];
+for(let i = 0; i < 10; i++){
   const el = document.createElement('div');
   el.className = 'petal';
   const size = 7 + Math.random() * 16;
@@ -1473,6 +1516,7 @@ const catalogGroups = [
   {
     id: 'track1', dots: 'dots1', catalog: 'Arreglos Florales',
     items: [
+      { id:'A00', img:'foto21.jpeg', title:'Ramo Rosa cumpleaños', desc:'Vibrantes rosas fucsia de lujo decoradas con una corona imperial dorada, mariposa y delicados detalles blancos, perfecto para celebraciones inolvidables.' },
       { id:'A01', img:'foto1.jpg',  title:'Ramo Girasol Dorado',    desc:'Un hermoso ramo inspirado en la calidez de los girasoles.' },
       { id:'A02', img:'foto2.jpg',  title:'Ramo Rosas Rojas y Rosa',       desc:'Composición en tonos rosa suave con rosas eternas de primera selección.' },
       { id:'A03', img:'foto3.jpg',  title:'Ramo Rosas Rojas y Blancas',  desc:'Inspirado en jardines de primavera, con flores de diferentes especies.' },
@@ -1734,7 +1778,7 @@ function scrollToCat(trackId, btn) {
   const track = document.getElementById(trackId);
   if(!track) return;
   const header = track.closest('.cat-carousel-wrap')?.previousElementSibling;
-  if(header) header.scrollIntoView({behavior:'smooth', block:'start'});
+  if(header) header.scrollIntoView({behavior:'auto', block:'start'});
   document.querySelectorAll('.cat-nav-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
@@ -1798,28 +1842,12 @@ function initScrollAnimations() {
   document.querySelectorAll('.wa-grand, .cat-group-header, .cat-carousel-wrap, .social-list, .soc-btn, .loc-wrap, .colophon, .stats-bar, .sec-header, .cat-card').forEach(el => {
     if(!el.classList.contains('revealed')) {
       el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      el.style.transform = 'translate3d(0, 10px, 0)';
+      el.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
       revealObs.observe(el);
     }
   });
 }
-
-/* ─── Parallax Effect ─── */
-window.addEventListener('scroll', () => {
-  const scrolled = window.pageYOffset;
-  const masthead = document.querySelector('.masthead');
-  if(masthead && window.innerWidth > 768) {
-    const limit = masthead.offsetTop + masthead.offsetHeight;
-    if(scrolled <= limit) {
-      const brand = document.querySelector('.brand-block');
-      const portrait = document.querySelector('.portrait-wrap');
-      brand.style.transform = `translateY(${scrolled * 0.15}px)`;
-      portrait.style.transform = `translateY(${scrolled * 0.1}px)`;
-    }
-  }
-});
-
 /* ─── Page Transitions ─── */
 document.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', e => {
