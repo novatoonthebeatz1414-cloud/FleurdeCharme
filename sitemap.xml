@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://fleurde-charme.vercel.app/index.html</loc>
+    <lastmod>2024-05-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://fleurde-charme.vercel.app/logo1.webp</image:loc>
+      <image:title>Fleur de Charme Logo</image:title>
+    </image:image>
+    <!-- Google Image references for catalog -->
+    <image:image>
+      <image:loc>https://fleurde-charme.vercel.app/foto21.webp</image:loc>
+      <image:title>Ramo Rosa cumpleaños</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://fleurde-charme.vercel.app/foto1.webp</image:loc>
+      <image:title>Ramo Girasol Dorado</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fleurde-charme.vercel.app/catalogo.html</loc>
+    <lastmod>2024-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fleurde-charme.vercel.app/resenas.html</loc>
+    <lastmod>2024-05-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>

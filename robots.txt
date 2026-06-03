@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fleurde-charme.vercel.app/sitemap.xml
