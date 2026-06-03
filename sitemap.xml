@@ -19,6 +19,22 @@
       <image:loc>https://fleurde-charme.vercel.app/foto1.webp</image:loc>
       <image:title>Ramo Girasol Dorado</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://fleurde-charme.vercel.app/foto2.webp</image:loc>
+      <image:title>Ramo Rosas Rojas y Rosa</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://fleurde-charme.vercel.app/caja1.webp</image:loc>
+      <image:title>Caja de Flores Rosas</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://fleurde-charme.vercel.app/foto16.webp</image:loc>
+      <image:title>Ramo Azul Pálido Aniversario</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://fleurde-charme.vercel.app/bandeja1.webp</image:loc>
+      <image:title>Bandeja Decorativa Premium</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://fleurde-charme.vercel.app/catalogo.html</loc>
