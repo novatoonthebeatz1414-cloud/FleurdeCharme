@@ -3,10 +3,16 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<link rel="icon" type="image/jpeg" href="logo1.jpg">
+<link rel="icon" type="image/jpeg" href="logo1.ico">
 <title>Fleur de Charme · Flores Eternas</title>
 <meta name="description" content="Flores eternas y preservadas artesanales. Arreglos, cajas, personalizados y bandejas de lujo. Pedidos por WhatsApp · Moca, República Dominicana."/>
 <meta property="og:title" content="Fleur de Charme · Flores Eternas"/>
+<!-- SEO Meta Tags -->
+<meta name="keywords" content="flores eternas, rosas preservadas, bandejas decorativas, regalos, Moca, República Dominicana, arreglos florales, exclusividad, elegancia, regalos personalizados"/>
+<meta name="author" content="Fleur de Charme"/>
+<meta name="robots" content="index, follow"/>
+<!-- Google Search Console verification meta tag -->
+<meta name="google-site-verification" content="4a5427c9e3063ad1"/>
 <meta property="og:description" content="Rosas eternas que cuentan historias. Exclusividad y elegancia en cada detalle."/>
 <meta property="og:type" content="website"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Tenor+Sans&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
@@ -69,29 +75,33 @@
   animation: pulse-reserve 2s infinite ease-in-out !important;
 }
 
-/* --- NUEVAS TRANSICIONES Y HOVERS --- */
-.cat-card, .soc-btn, .loc-card, .wa-grand, .stats-bar {
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease;
-  will-change: transform, opacity;
+/* --- OPTIMIZACIÓN DE RENDIMIENTO --- */
+.cat-card, .soc-btn, .loc-card, .wa-grand, .stats-bar, .cat-img {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.2s ease;
+  will-change: transform;
 }
 
-.cat-img {
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease !important;
+/* Evitar repaint del body durante el scroll */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--bg-main);
+  z-index: -2;
+  pointer-events: none;
 }
 
 .cat-card:hover .cat-img {
-  filter: brightness(0.7) blur(1px);
+  filter: brightness(0.8);
 }
 
 .cat-nav-btn, .cat-reserve, .review-btn-fixed, .lb-reserve {
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
-html { scroll-behavior: auto; height: 100%; background: #080508; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; height: 100%; background: #080508; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 body {
-  background: var(--bg-main);
   background-color: #080508;
-  background-attachment: fixed;
   font-family: 'Cormorant Garamond', 'Georgia', serif;
   color: var(--text-primary);
   min-height: 100vh;
@@ -214,7 +224,6 @@ body.fade-out {
     rgba(8,3,7,0.98) 0%,
     rgba(14,6,12,0.99) 50%,
     rgba(10,4,9,0.98) 100%);
-  backdrop-filter: blur(30px);
   padding: 52px 28px 44px;
   display: flex; flex-direction: column; align-items: center;
   position: relative; overflow: hidden;
@@ -293,8 +302,7 @@ body.fade-out {
   display: flex; align-items: center; gap: 5px;
   background: rgba(8,5,7,0.90);
   border: 1px solid rgba(74,222,128,0.35);
-  border-radius: 100px; padding: 4px 10px 4px 7px;
-  backdrop-filter: blur(8px); z-index: 5;
+  border-radius: 100px; padding: 4px 10px 4px 7px; z-index: 5;
 }
 .live-dot {
   width: 6px; height: 6px; border-radius: 50%;
@@ -408,7 +416,6 @@ body.fade-out {
   display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr;
   margin: 0 auto;
   background: rgba(8,3,7,0.95);
-  backdrop-filter: blur(20px);
   border: 1px solid var(--border-gold); border-top: none;
   border-radius: 0 0 18px 18px;
   box-shadow: 0 12px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(196,153,62,0.06);
@@ -527,7 +534,6 @@ body.fade-out {
   width: calc(100% - 40px); margin: 30px 20px 14px;
   padding: 16px 20px;
   background: linear-gradient(135deg, rgba(12,5,10,0.97) 0%, rgba(20,8,16,0.94) 100%);
-  backdrop-filter: blur(20px);
   border: 1px solid rgba(196,153,62,0.18);
   border-left: 3px solid var(--gold-mid);
   border-radius: 0 16px 16px 0;
@@ -570,7 +576,6 @@ body.fade-out {
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(0,0,0,0.7);
-  backdrop-filter: blur(12px);
 }
 .cat-arrow:hover {
   background: rgba(196,153,62,0.18);
@@ -596,7 +601,6 @@ body.fade-out {
   border-radius: 24px; overflow: hidden;
   position: relative;
   background: linear-gradient(165deg, rgba(18,7,14,0.98) 0%, rgba(10,4,9,1) 100%);
-  backdrop-filter: blur(28px);
   border: 1px solid rgba(196,153,62,0.14);
   display: flex; flex-direction: column;
   transition: transform 0.5s cubic-bezier(.16,1,.3,1), box-shadow 0.5s ease, border-color 0.4s ease;
@@ -618,7 +622,7 @@ body.fade-out {
 .cat-img-wrap { position: relative; aspect-ratio: 4/3.2; overflow: hidden; background: #080307; }
 .cat-img {
   width: 100%; height: 100%;
-  background-size: cover; background-position: center;
+  object-fit: cover;
   transition: transform 0.75s cubic-bezier(.16,1,.3,1);
 }
 .cat-card:hover .cat-img { transform: scale(1.10); }
@@ -638,7 +642,7 @@ body.fade-out {
   font-family: 'Tenor Sans', sans-serif; font-size: 0.44rem;
   letter-spacing: 0.20em; color: var(--ivory);
   background: rgba(0,0,0,0.72); border: 1px solid rgba(196,153,62,0.35);
-  padding: 4px 10px; border-radius: 100px; backdrop-filter: blur(10px); z-index: 2;
+  padding: 4px 10px; border-radius: 100px; z-index: 2;
 }
 
 .cat-zoom {
@@ -646,8 +650,7 @@ body.fade-out {
   width: 32px; height: 32px; border-radius: 50%;
   background: rgba(0,0,0,0.60); border: 1px solid rgba(255,255,255,0.12);
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; transform: scale(0.75);
-  transition: opacity 0.3s, transform 0.3s; backdrop-filter: blur(8px); z-index: 2;
+  opacity: 0; transform: scale(0.75); z-index: 2;
 }
 .cat-card:hover .cat-zoom { opacity: 1; transform: scale(1); }
 .cat-zoom svg { width: 14px; height: 14px; }
@@ -657,7 +660,7 @@ body.fade-out {
   position: absolute; bottom: 12px; left: 12px;
   font-family: 'Tenor Sans', sans-serif; font-size: 0.38rem;
   letter-spacing: 0.15em; text-transform: uppercase;
-  padding: 4px 11px; border-radius: 100px; backdrop-filter: blur(10px); z-index: 3;
+  padding: 4px 11px; border-radius: 100px; z-index: 3;
 }
 .cat-badge.top {
   background: rgba(160,110,15,0.85); border: 1px solid rgba(230,185,90,0.50);
@@ -789,7 +792,6 @@ body.fade-out {
   transition: transform 0.35s cubic-bezier(.16,1,.3,1), box-shadow 0.35s ease;
   cursor: pointer;
   background: linear-gradient(135deg, rgba(10,4,8,0.92) 0%, rgba(14,6,11,0.88) 100%);
-  backdrop-filter: blur(18px);
 }
 /* Top shimmer line */
 .soc-btn::after {
@@ -862,7 +864,7 @@ body.fade-out {
   text-decoration: none; color: inherit;
   border: 1px solid var(--border-gold);
   transition: transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s ease;
-  cursor: pointer; backdrop-filter: blur(14px);
+  cursor: pointer;
   box-shadow: 0 4px 24px rgba(0,0,0,0.40);
 }
 .loc-card:hover {
@@ -1172,7 +1174,7 @@ body.fade-out {
     <div class="portrait-wrap">
       <div class="portrait-halo"></div>
       <div class="portrait-ring">
-        <img class="portrait-img" src="logo1.jpg" alt="Fleur de Charme"
+        <img class="portrait-img" src="logo1.webp" alt="Fleur de Charme" fetchpriority="high"
           onerror="this.style.display='none';this.parentElement.style.background='conic-gradient(#9a7630 0deg,#d4ab52 60deg,#f5e2aa 120deg,#d4ab52 180deg,#9a7630 240deg,#c8326e 270deg,#e8789a 300deg,#9a7630 360deg)'"/>
       </div>
       <div class="live-badge">
@@ -1516,96 +1518,96 @@ const catalogGroups = [
   {
     id: 'track1', dots: 'dots1', catalog: 'Arreglos Florales',
     items: [
-      { id:'A00', img:'foto21.jpeg', title:'Ramo Rosa cumpleaños', desc:'Vibrantes rosas fucsia de lujo decoradas con una corona imperial dorada, mariposa y delicados detalles blancos, perfecto para celebraciones inolvidables.' },
-      { id:'A01', img:'foto1.jpg',  title:'Ramo Girasol Dorado',    desc:'Un hermoso ramo inspirado en la calidez de los girasoles.' },
-      { id:'A02', img:'foto2.jpg',  title:'Ramo Rosas Rojas y Rosa',       desc:'Composición en tonos rosa suave con rosas eternas de primera selección.' },
-      { id:'A03', img:'foto3.jpg',  title:'Ramo Rosas Rojas y Blancas',  desc:'Inspirado en jardines de primavera, con flores de diferentes especies.' },
-      { id:'A04', img:'foto4.jpg',  title:'Ramo Blanco y Azul Fútbol',    desc:'Tonos marfil y crema que evocan pureza y sofisticación atemporal.' },
-      { id:'A05', img:'foto5.jpg',  title:'Ramo Roja con Girasol',  desc:'Mezcla de tonos cálidos que recuerdan los atardeceres más hermosos.' },
-      { id:'A06', img:'foto6.jpg',  title:'Ramo Pasion Rosé',       desc:'Rosas rojas y fucsia en composición dramática y apasionada.' },
-      { id:'A07', img:'foto7.jpg',  title:'Ramo para Cumpleaños',      desc:'Tonos suaves y serenos para ambientes tranquilos y elegantes.' },
-      { id:'A08', img:'foto8.jpg',  title:'Ramo Amarillas y Blanco',  desc:'Rosa roja preservada, símbolo eterno del amor verdadero.' },
-      { id:'A09', img:'foto9.jpg',  title:'Ramo Flores Selectas',      desc:'Selección especial de rosas preservadas de la más alta calidad.' },
-      { id:'A10', img:'foto10.jpg', title:'Ramo Rosas con Mariposas',   desc:'Colores que van del rosado al naranja, como el amanecer del día.' },
-      { id:'A11', img:'foto11.jpg', title:'Ramo Rosas con Crema',      desc:'Contrastes oscuros con flores de colores intensos para un look dramático.' },
-      { id:'A12', img:'foto12.jpg', title:'Ramo Flores Antiguo',      desc:'El arreglo favorito de las que aman el tono rosa envejecido. Suave y eterno.' },
-      { id:'A13', img:'foto13.jpg', title:'Ramo de Tres Rosas', desc:'Variedad de flores silvestres preservadas con un toque bohemio.' },
-      { id:'A14', img:'foto14.jpg', title:'Ramo Flores Azules',     desc:'Detalles dorados entre flores preservadas para un resultado lujoso.' },
-      { id:'A15', img:'foto15.jpg', title:'Ramo Amarillas y Blanco',   desc:'Blancos y cremas que evocan la pureza y suavidad de una perla.' },
-      { id:'A16', img:'foto16.jpg', title:'Ramo Azul Pálido Aniversario', desc:'Rosas aterciopeladas con textura y profundidad de color inigualable.' },
-      { id:'A17', img:'foto17.jpg', title:'Ramo Flores Amarillas III',      desc:'Pequeño, encantador y con mucho carácter. El regalo que sorprende.' },
-      { id:'A18', img:'foto18.jpg', title:'Ramo Flores Amarillas',    desc:'Una combinación misteriosa de flores eternas en tonos morados y vino.' },
-      { id:'A19', img:'foto19.jpg', title:'Ramo Crema con Azul',     desc:'Tonos neutros y elegantes para regalar sin equivocarse.' },
-      { id:'A20', img:'foto20.jpg', title:'Ramo Azul Claro y Oscuro',    desc:'El arreglo más completo de la colección. Tamaño maxi, impacto máximo.' },
-      { id:'A21', img:'flores21.jpg', title:'Ramo Azul con Blanco corona + Mariposas',    desc:'El arreglo más completo de la colección. Tamaño maxi, impacto máximo.' },
-      { id:'A22', img:'flores22.jpg', title:'Ramo flores amarillas',    desc:'El arreglo más completo de la colección. Tamaño maxi, impacto máximo.' },
-      { id:'A23', img:'flores23.jpg', title:'Ramo flores amarillas',    desc:'El arreglo más completo de la colección. Tamaño maxi, impacto máximo.' },
+      { id:'A00', img:'foto21.webp', title:'Ramo Rosa cumpleaños', desc:'Vibrantes rosas fucsia de lujo decoradas con una corona imperial dorada, mariposa y delicados detalles blancos, perfecto para celebraciones inolvidables.' },
+      { id:'A01', img:'foto1.webp',  title:'Ramo Girasol Dorado',    desc:'Un hermoso ramo inspirado en la calidez de los girasoles.' },
+      { id:'A02', img:'foto2.webp',  title:'Ramo Rosas Rojas y Rosa',       desc:'Composición en tonos rosa suave con rosas eternas de primera selección.' },
+      { id:'A03', img:'foto3.webp',  title:'Ramo Rosas Rojas y Blancas',  desc:'Inspirado en jardines de primavera, con flores de diferentes especies.' },
+      { id:'A04', img:'foto4.webp',  title:'Ramo Blanco y Azul Fútbol',    desc:'Tonos marfil y crema que evocan pureza y sofisticación atemporal.' },
+      { id:'A05', img:'foto5.webp',  title:'Ramo Roja con Girasol',  desc:'Mezcla de tonos cálidos que recuerdan los atardeceres más hermosos.' },
+      { id:'A06', img:'foto6.webp',  title:'Ramo Pasion Rosé',       desc:'Rosas rojas y fucsia en composición dramática y apasionada.' },
+      { id:'A07', img:'foto7.webp',  title:'Ramo para Cumpleaños',      desc:'Tonos suaves y serenos para ambientes tranquilos y elegantes.' },
+      { id:'A08', img:'foto8.webp',  title:'Ramo Amarillas y Blanco',  desc:'Rosa roja preservada, símbolo eterno del amor verdadero.' },
+      { id:'A09', img:'foto9.webp',  title:'Ramo Flores Selectas',      desc:'Selección especial de rosas preservadas de la más alta calidad.' },
+      { id:'A10', img:'foto10.webp', title:'Ramo Rosas con Mariposas',   desc:'Colores que van del rosado al naranja, como el amanecer del día.' },
+      { id:'A11', img:'foto11.webp', title:'Ramo Rosas con Crema',      desc:'Contrastes oscuros con flores de colores intensos para un look dramático.' },
+      { id:'A12', img:'foto12.webp', title:'Ramo Flores Antiguo',      desc:'El arreglo favorito de las que aman el tono rosa envejecido. Suave y eterno.' },
+      { id:'A13', img:'foto13.webp', title:'Ramo de Tres Rosas', desc:'Variedad de flores silvestres preservadas con un toque bohemio.' },
+      { id:'A14', img:'foto14.webp', title:'Ramo Flores Azules',     desc:'Detalles dorados entre flores preservadas para un resultado lujoso.' },
+      { id:'A15', img:'foto15.webp', title:'Ramo Amarillas y Blanco',   desc:'Blancos y cremas que evocan la pureza y suavidad de una perla.' },
+      { id:'A16', img:'foto16.webp', title:'Ramo Azul Pálido Aniversario', desc:'Rosas aterciopeladas con textura y profundidad de color inigualable.' },
+      { id:'A17', img:'foto17.webp', title:'Ramo Flores Amarillas III',      desc:'Pequeño, encantador y con mucho carácter. El regalo que sorprende.' },
+      { id:'A18', img:'foto18.webp', title:'Ramo Flores Amarillas',    desc:'Una combinación misteriosa de flores eternas en tonos morados y vino.' },
+      { id:'A19', img:'foto19.webp', title:'Ramo Crema con Azul',     desc:'Tonos neutros y elegantes para regalar sin equivocarse.' },
+      { id:'A20', img:'foto20.webp', title:'Ramo Azul Claro y Oscuro',    desc:'El arreglo más completo de la colección. Tamaño maxi, impacto máximo.' },
+      { id:'A21', img:'flores21.webp', title:'Ramo Azul con Blanco corona + Mariposas',    desc:'El arreglo más completo de la colección. Tamaño maxi, impacto máximo.' },
+      { id:'A22', img:'flores22.webp', title:'Ramo flores amarillas',    desc:'El arreglo más completo de la colección. Tamaño maxi, impacto máximo.' },
+      { id:'A23', img:'flores23.webp', title:'Ramo flores amarillas',    desc:'El arreglo más completo de la colección. Tamaño maxi, impacto máximo.' },
     ]
   },
   {
     id: 'track2', dots: 'dots2', catalog: 'Cajas de Flores',
     items: [
-      { id:'R01', img:'caja1.jpg',  title:'Caja de Flores Rosas',        desc:'Ramo clásico de rosas preservadas, siempre a la moda.' },
-      { id:'R02', img:'caja2.jpg',  title:'Caja Rojas con Mariposas',       desc:'Pequeño ramo para ocasiones formales y eventos especiales.' },
-      { id:'R03', img:'caja3.jpg',  title:'Caja Rosas con Corona',     desc:'Flores de temporada preservadas con colores vivos y alegres.' },
-      { id:'R04', img:'caja4.jpg',  title:'Caja de Girasoles',         desc:'Ramo esponjoso en tonos blancos y rosados, suave como una nube.' },
-      { id:'R05', img:'caja5.jpg',  title:'Caja Corazón Rojas y Blanco',       desc:'Mezcla premium de flores preservadas con colores contrastantes.' },
-      { id:'R06', img:'caja6.jpg',  title:'Caja Rojas con Chocolates',      desc:'Tonos rojos y naranjas intensos para quien quiere hacer una declaración.' },
-      { id:'R07', img:'caja7.jpg',  title:'Caja Azul con Peluche Stich',        desc:'Colores pastel dulces y delicados para celebraciones especiales.' },
-      { id:'R08', img:'caja8.jpg',  title:'Caja Estilo Cartera Rojas',     desc:'Ramo con pétalos brillantes y detalles metalizados de lujo.' },
-      { id:'R09', img:'caja9.jpg',  title:'Caja Cremas con Mariposa',     desc:'Tonos cereza vibrantes que alegran cualquier espacio o momento.' },
-      { id:'R10', img:'caja10.jpg', title:'Caja Rojas Corazón',   desc:'Estilo bohemio con flores silvestres y texturas variadas.' },
-      { id:'R11', img:'caja11.jpg', title:'Caja de Flores Rojas',     desc:'Ramo de novia completamente personalizado. Tu día perfecto merece esto.' },
-      { id:'R12', img:'caja12.jpg', title:'Caja de Flores Azules',   desc:'El ramo más exclusivo de la línea, con flores de selección premium.' },
-      { id:'R13', img:'caja13.jpg', title:'Caja Azul Oscuro',   desc:'Flores silvestres preservadas con un toque de naturaleza auténtica.' },
-      { id:'R14', img:'caja14.jpg', title:'Caja Azul y Bombones Corazón',     desc:'Tonos nácar y marfil con detalles perlados de alta joyería floral.' },
-      { id:'R15', img:'caja15.jpg', title:'Caja Rojas con Bombones',    desc:'El rosa más sofisticado en un ramo que enamora desde el primer vistazo.' },
-      { id:'R16', img:'caja16.jpg', title:'Caja Rojas y Bombones',      desc:'Un jardín completo en tus manos. Variedad, color y elegancia.' },
-      { id:'R17', img:'caja17.jpg', title:'Caja Rojas Orilla Blanca',   desc:'Estética vintage con flores que parecen sacadas de otra época.' },
-      { id:'R18', img:'caja18.jpg', title:'Caja Rojas con Letras',      desc:'Tonos coral cálidos que combinan belleza tropical y elegancia.' },
-      { id:'R19', img:'caja19.jpg', title:'Caja Rosas Estilo Cartera',     desc:'Flores que duran para siempre, como los mejores recuerdos.' },
-      { id:'R20', img:'caja20.jpg', title:'Caja Rosas con Mariposas',    desc:'El ramo más grande y espectacular de toda la colección.' },
+      { id:'R01', img:'caja1.webp',  title:'Caja de Flores Rosas',        desc:'Ramo clásico de rosas preservadas, siempre a la moda.' },
+      { id:'R02', img:'caja2.webp',  title:'Caja Rojas con Mariposas',       desc:'Pequeño ramo para ocasiones formales y eventos especiales.' },
+      { id:'R03', img:'caja3.webp',  title:'Caja Rosas con Corona',     desc:'Flores de temporada preservadas con colores vivos y alegres.' },
+      { id:'R04', img:'caja4.webp',  title:'Caja de Girasoles',         desc:'Ramo esponjoso en tonos blancos y rosados, suave como una nube.' },
+      { id:'R05', img:'caja5.webp',  title:'Caja Corazón Rojas y Blanco',       desc:'Mezcla premium de flores preservadas con colores contrastantes.' },
+      { id:'R06', img:'caja6.webp',  title:'Caja Rojas con Chocolates',      desc:'Tonos rojos y naranjas intensos para quien quiere hacer una declaración.' },
+      { id:'R07', img:'caja7.webp',  title:'Caja Azul with Peluche Stich',        desc:'Colores pastel dulces y delicados para celebraciones especiales.' },
+      { id:'R08', img:'caja8.webp',  title:'Caja Estilo Cartera Rojas',     desc:'Ramo con pétalos brillantes y detalles metalizados de lujo.' },
+      { id:'R09', img:'caja9.webp',  title:'Caja Cremas con Mariposa',     desc:'Tonos cereza vibrantes que alegran cualquier espacio o momento.' },
+      { id:'R10', img:'caja10.webp', title:'Caja Rojas Corazón',   desc:'Estilo bohemio con flores silvestres y texturas variadas.' },
+      { id:'R11', img:'caja11.webp', title:'Caja de Flores Rojas',     desc:'Ramo de novia completamente personalizado. Tu día perfecto merece esto.' },
+      { id:'R12', img:'caja12.webp', title:'Caja de Flores Azules',   desc:'El ramo más exclusivo de la línea, con flores de selección premium.' },
+      { id:'R13', img:'caja13.webp', title:'Caja Azul Oscuro',   desc:'Flores silvestres preservadas con un toque de naturaleza auténtica.' },
+      { id:'R14', img:'caja14.webp', title:'Caja Azul y Bombones Corazón',     desc:'Tonos nácar y marfil con detalles perlados de alta joyería floral.' },
+      { id:'R15', img:'caja15.webp', title:'Caja Rojas con Bombones',    desc:'El rosa más sofisticado en un ramo que enamora desde el primer vistazo.' },
+      { id:'R16', img:'caja16.webp', title:'Caja Rojas y Bombones',      desc:'Un jardín completo en tus manos. Variedad, color y elegancia.' },
+      { id:'R17', img:'caja17.webp', title:'Caja Rojas Orilla Blanca',   desc:'Estética vintage con flores que parecen sacadas de otra época.' },
+      { id:'R18', img:'caja18.webp', title:'Caja Rojas con Letras',      desc:'Tonos coral cálidos que combinan belleza tropical y elegancia.' },
+      { id:'R19', img:'caja19.webp', title:'Caja Rosas Estilo Cartera',     desc:'Flores que duran para siempre, como los mejores recuerdos.' },
+      { id:'R20', img:'caja20.webp', title:'Caja Rosas con Mariposas',    desc:'El ramo más grande y espectacular de toda la colección.' },
     ]
   },
   {
     id: 'track3', dots: 'dots3', catalog: 'Personalizados',
     items: [
-      { id:'C01', img:'personalizados1.jpg',  title:'Caja Personalizada Roja',   desc:'Caja decorativa con rosas blancas preservadas. Elegancia atemporal.' },
-      { id:'C02', img:'personalizados2.jpg',  title:'Caja Personalizada Rosa',            desc:'Caja rosa suave llena de flores eternas en tonos delicados.' },
-      { id:'C03', img:'personalizados3.jpg',  title:'Personalizado con Chocolates',   desc:'Flores de primavera preservadas en una caja decorativa irresistible.' },
-      { id:'C04', img:'personalizados4.jpg',  title:'Caja Rosa con Chocolates',        desc:'Tonos marfil y crema en una presentación de caja lujosa y atemporal.' },
-      { id:'C05', img:'personalizados5.jpg',  title:'Caja Azul con Globo',    desc:'Colores vibrantes que evocan el paraíso floral más exuberante.' },
-      { id:'C06', img:'personalizados6.jpg',  title:'Flores con Chocolates',         desc:'Rosas rojas y fucsia en caja de regalo dramática y apasionada.' },
-      { id:'C07', img:'personalizados7.jpg',  title:'Caja Roja con Chocolates',   desc:'La caja de los sueños: flores eternas en presentación de lujo.' },
-      { id:'C08', img:'personalizados8.jpg',  title:'Caja para Hombre con T-shirt',        desc:'Caja en forma de corazón con flores preservadas. El regalo perfecto.' },
-      { id:'C09', img:'personalizados9.jpg',  title:'Caja Roja Exclusiva',        desc:'La caja más exclusiva, con rosas preservadas de selección especial.' },
-      { id:'C10', img:'personalizados10.jpg', title:'Cuadro Personalizado',        desc:'Tonos del amanecer en una caja que despierta emociones únicas.' },
-      { id:'C11', img:'personalizados11.jpg', title:'Personalizado de Empaques',       desc:'Diseñada especialmente para bodas y momentos de celebración nupcial.' },
-      { id:'C12', img:'personalizados12.jpg', title:'Personalizado Rosa Accesorios',       desc:'Caja grande con gran variedad de flores eternas. Para decir mucho.' },
-      { id:'C13', img:'personalizados13.jpg', title:'Termos Personalizados',           desc:'La combinación perfecta de flores rojas y rosas para declarar amor.' },
-      { id:'C14', img:'personalizados14.jpg', title:'Caja Personalizada',        desc:'Detalles dorados sobre flores preservadas para un regalo de alto impacto.' },
-      { id:'C15', img:'personalizados15.jpg', title:'Cuadro para Parejas',       desc:'Blancos y cremas nacarados en caja elegante de edición especial.' },
-      { id:'C16', img:'personalizados16.jpg', title:'Cuadro para Parejas II',        desc:'Caja especial diseñada para regalos de amor en todas sus formas.' },
-      { id:'C17', img:'personalizados17.jpg', title:'Cuadro Anime para Hombres',          desc:'Formato pequeño con gran contenido emocional. Perfecta como detalle.' },
-      { id:'C18', img:'personalizados18.jpg', title:'Cuadro para Parejas III',         desc:'Flores moradas y vino en caja de edición limitada con esencia mística.' },
-      { id:'C19', img:'personalizados19.jpg', title:'Cuadro para Parejas IV',   desc:'Porque hay momentos que merecen un regalo que dure para siempre.' },
-      { id:'C20', img:'personalizados20.jpg', title:'Caja Rosa con Globos',      desc:'Edición especial limitada. Lo más exclusivo de nuestra colección.' },
+      { id:'C01', img:'personalizados1.webp',  title:'Caja Personalizada Roja',   desc:'Caja decorativa con rosas blancas preservadas. Elegancia atemporal.' },
+      { id:'C02', img:'personalizados2.webp',  title:'Caja Personalizada Rosa',            desc:'Caja rosa suave llena de flores eternas en tonos delicados.' },
+      { id:'C03', img:'personalizados3.webp',  title:'Personalizado con Chocolates',   desc:'Flores de primavera preservadas in una caja decorativa irresistible.' },
+      { id:'C04', img:'personalizados4.webp',  title:'Caja Rosa con Chocolates',        desc:'Tonos marfil y crema en una presentación de caja lujosa y atemporal.' },
+      { id:'C05', img:'personalizados5.webp',  title:'Caja Azul con Globo',    desc:'Colores vibrantes que evocan el paraíso floral más exuberante.' },
+      { id:'C06', img:'personalizados6.webp',  title:'Flores con Chocolates',         desc:'Rosas rojas y fucsia en caja de regalo dramática y apasionada.' },
+      { id:'C07', img:'personalizados7.webp',  title:'Caja Roja con Chocolates',   desc:'La caja de los sueños: flores eternas en presentación de lujo.' },
+      { id:'C08', img:'personalizados8.webp',  title:'Caja para Hombre con T-shirt',        desc:'Caja en forma de corazón con flores preservadas. El regalo perfecto.' },
+      { id:'C09', img:'personalizados9.webp',  title:'Caja Roja Exclusiva',        desc:'La caja más exclusiva, con rosas preservadas de selección especial.' },
+      { id:'C10', img:'personalizados10.webp', title:'Cuadro Personalizado',        desc:'Tonos del amanecer en una caja que despierta emociones únicas.' },
+      { id:'C11', img:'personalizados11.webp', title:'Personalizado de Empaques',       desc:'Diseñada especialmente para bodas y momentos de celebración nupcial.' },
+      { id:'C12', img:'personalizados12.webp', title:'Personalizado Rosa Accesorios',       desc:'Caja grande con gran variedad de flores eternas. Para decir mucho.' },
+      { id:'C13', img:'personalizados13.webp', title:'Termos Personalizados',           desc:'La combinación perfecta de flores rojas y rosas para declarar amor.' },
+      { id:'C14', img:'personalizados14.webp', title:'Caja Personalizada',        desc:'Detalles dorados sobre flores preservadas para un regalo de alto impacto.' },
+      { id:'C15', img:'personalizados15.webp', title:'Cuadro para Parejas',       desc:'Blancos y cremas nacarados en caja elegante de edición especial.' },
+      { id:'C16', img:'personalizados16.webp', title:'Cuadro para Parejas II',        desc:'Caja especial diseñada para regalos de amor en todas sus formas.' },
+      { id:'C17', img:'personalizados17.webp', title:'Cuadro Anime para Hombres',          desc:'Formato pequeño con gran contenido emocional. Perfecta como detalle.' },
+      { id:'C18', img:'personalizados18.webp', title:'Cuadro para Parejas III',         desc:'Flores moradas y vino en caja de edición limitada con esencia mística.' },
+      { id:'C19', img:'personalizados19.webp', title:'Cuadro para Parejas IV',   desc:'Porque hay momentos que merecen un regalo que dure para siempre.' },
+      { id:'C20', img:'personalizados20.webp', title:'Caja Rosa con Globos',      desc:'Edición especial limitada. Lo más exclusivo de nuestra colección.' },
     ]
   },
   {
     id: 'track4', dots: 'dots4', catalog: 'Bandejas',
     items: [
-      { id:'B01', img:'bandeja1.jpg',  title:'Bandeja1',      desc:'Bandeja decorativa con rosas preservadas en tonos rosé y marfil.' },
-      { id:'B02', img:'bandeja2.jpg',  title:'Bandeja2',    desc:'Diseño elegante con flores de primera calidad y detalles de lujo.' },
-      { id:'B03', img:'bandeja3.jpg',  title:'Bandeja3',  desc:'Variedad de flores silvestres sobre bandeja decorativa artesanal.' },
-      { id:'B04', img:'bandeja4.jpg',  title:'Bandeja4',     desc:'Tonos neutros y marfil para una presentación refinada y atemporal.' },
-      { id:'B05', img:'bandeja5.jpg',  title:'Bandeja5', desc:'Explosión de colores tropicales en una bandeja espectacular.' },
-      { id:'B06', img:'bandeja6.jpg',  title:'Bandeja6',     desc:'Bandeja decorativa exclusiva, perfecta como regalo de lujo.' },
-      { id:'B07', img:'bandeja7.jpg',  title:'Bandeja7', desc:'Flores pastel sobre bandeja, dulce y encantadora para cualquier ocasión.' },
-      { id:'B08', img:'bandeja8.jpg',  title:'Bandeja8',       desc:'Corazones florales y rosas rojas en bandeja de declaración total.' },
-      { id:'B09', img:'bandeja9.jpg',  title:'Bandeja9',     desc:'La bandeja más exclusiva con rosas de selección especial premium.' },
-      { id:'B10', img:'bandeja10.jpg', title:'Bandeja10',    desc:'Bandeja decorativa con acentos dorados. Sofisticación pura.' },
-      { id:'B11', img:'bandeja11.jpg', title:'Bandeja11',    desc:'Para bodas y eventos nupciales que merecen la más bella decoración.' },
+      { id:'B01', img:'bandeja1.webp',  title:'Bandeja1',      desc:'Bandeja decorativa con rosas preservadas en tonos rosé y marfil.' },
+      { id:'B02', img:'bandeja2.webp',  title:'Bandeja2',    desc:'Diseño elegante con flores de primera calidad y detalles de lujo.' },
+      { id:'B03', img:'bandeja3.webp',  title:'Bandeja3',  desc:'Variedad de flores silvestres sobre bandeja decorativa artesanal.' },
+      { id:'B04', img:'bandeja4.webp',  title:'Bandeja4',     desc:'Tonos neutros y marfil para una presentación refinada y atemporal.' },
+      { id:'B05', img:'bandeja5.webp',  title:'Bandeja5', desc:'Explosión de colores tropicales en una bandeja espectacular.' },
+      { id:'B06', img:'bandeja6.webp',  title:'Bandeja6',     desc:'Bandeja decorativa exclusiva, perfecta como regalo de lujo.' },
+      { id:'B07', img:'bandeja7.webp',  title:'Bandeja7', desc:'Flores pastel sobre bandeja, dulce y encantadora para cualquier ocasión.' },
+      { id:'B08', img:'bandeja8.webp',  title:'Bandeja8',       desc:'Corazones florales y rosas rojas en bandeja de declaración total.' },
+      { id:'B09', img:'bandeja9.webp',  title:'Bandeja9',     desc:'La bandeja más exclusiva con rosas de selección especial premium.' },
+      { id:'B10', img:'bandeja10.webp', title:'Bandeja10',    desc:'Bandeja decorativa con acentos dorados. Sofisticación pura.' },
+      { id:'B11', img:'bandeja11.webp', title:'Bandeja11',    desc:'Para bodas y eventos nupciales que merecen la más bella decoración.' },
     ]
   },
 ];
@@ -1656,7 +1658,7 @@ function buildGroupCards(trackId, dotsId, items, catalog){
 
     card.innerHTML = `
       <div class="cat-img-wrap">
-        <div class="cat-img" style="background-image:url('${item.img}')"></div>
+        <img class="cat-img" src="${item.img}" loading="lazy" decoding="async" alt="${item.title}">
         <span class="cat-num">${item.id}</span>
         ${badgeHtml}
         <div class="cat-zoom">
@@ -1777,7 +1779,7 @@ document.getElementById('lbImg').style.transition = 'opacity 0.18s ease, transfo
 function scrollToCat(trackId, btn) {
   const track = document.getElementById(trackId);
   if(!track) return;
-  const header = track.closest('.cat-carousel-wrap')?.previousElementSibling;
+  const header = track.closest('.cat-carousel-wrap').previousElementSibling;
   if(header) header.scrollIntoView({behavior:'auto', block:'start'});
   document.querySelectorAll('.cat-nav-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
