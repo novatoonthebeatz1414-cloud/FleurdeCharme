@@ -8,16 +8,17 @@
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://fleurde-charme.vercel.app/logo1.webp</image:loc>
-      <image:title>Fleur de Charme Logo</image:title>
+      <image:title>Fleur de Charme Moca Logo</image:title>
+      <image:caption>Logotipo oficial de Fleur de Charme Moca, expertos en rosas eternas.</image:caption>
     </image:image>
     <!-- Google Image references for catalog -->
     <image:image>
       <image:loc>https://fleurde-charme.vercel.app/foto21.webp</image:loc>
-      <image:title>Ramo Rosa cumpleaños</image:title>
+      <image:title>Ramo Rosa Cumpleaños - Fleur de Charme</image:title>
     </image:image>
     <image:image>
       <image:loc>https://fleurde-charme.vercel.app/foto1.webp</image:loc>
-      <image:title>Ramo Girasol Dorado</image:title>
+      <image:title>Ramo Girasol Dorado - Arreglos Florales Moca</image:title>
     </image:image>
     <image:image>
       <image:loc>https://fleurde-charme.vercel.app/foto2.webp</image:loc>
@@ -25,7 +26,7 @@
     </image:image>
     <image:image>
       <image:loc>https://fleurde-charme.vercel.app/caja1.webp</image:loc>
-      <image:title>Caja de Flores Rosas</image:title>
+      <image:title>Caja de Flores Rosas - Regalos Exclusivos</image:title>
     </image:image>
     <image:image>
       <image:loc>https://fleurde-charme.vercel.app/foto16.webp</image:loc>
@@ -33,7 +34,23 @@
     </image:image>
     <image:image>
       <image:loc>https://fleurde-charme.vercel.app/bandeja1.webp</image:loc>
-      <image:title>Bandeja Decorativa Premium</image:title>
+      <image:title>Bandeja Decorativa Premium - Fleur de Charme</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://fleurde-charme.vercel.app/personalizados1.webp</image:loc>
+      <image:title>Caja Personalizada con Chocolates</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://fleurde-charme.vercel.app/flores21.webp</image:loc>
+      <image:title>Ramo Azul con Blanco y Corona</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://fleurde-charme.vercel.app/foto10.webp</image:loc>
+      <image:title>Ramo de Rosas con Mariposas Doradas</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://fleurde-charme.vercel.app/caja10.webp</image:loc>
+      <image:title>Caja Corazón de Rosas Rojas</image:title>
     </image:image>
   </url>
   <url>
